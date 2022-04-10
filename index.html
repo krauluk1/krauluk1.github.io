@@ -1,12 +1,238 @@
 <!DOCTYPE html>
-<html>
-<head>
-<title>Page Title</title>
-</head>
-<body>
+<html lang="de">
+    <head>
+        <!--Normal Meta Tags-->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<h1>This is a Heading</h1>
-<p>This is a paragraph.</p>
+        <!--Description Meta Tags -->
+        <meta name="description" content="Forschung & Freizeit von Lukas sowie eine kleine Selbstdarstellung. Dies ist eine Spaßseite zum Lernen von Webprogrammierung.">
+        <meta name="keywords" content="Lukas Kraus, Lukas, RoboCup@Work, SWOT, FHWS, Webdesign, krauluk1">
+        <meta name="author" content="Lukas Kraus">
+        
+        <!--Add Icons-->
+        <link rel="icon" href="assets/media/favicon/favicon-32x32.png" type="image/x-icon"/>
+        <link rel="shortcut icon" href="assets/media/favicon/favicon-96x96.ico" type="image/x-icon"/>        
+        
+        <!--Blog Title-->
+        <title>blog-lukas.de: Forschung, Freizeit und aktuelle Projekte</title>
+        
+        <!-- ADD Font Family -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+        
+        <!--Stylesheets-->
+        <link rel="stylesheet" href="assets/css/bootstrap.css">
+        <link rel="stylesheet" href="assets/css/theme.css">
 
-</body>
+        <!--Add Icons-->
+        <script src="https://kit.fontawesome.com/7ad25f848f.js" crossorigin="anonymous"></script>
+    </head>
+    <body data-spy="scroll" data-target="#my-nav-bar">
+        
+        <nav class="navbar navbar-inverse navbar-fixed-top" id="my-nav-bar">
+          <div class="container">
+            <!-- Titel und Schalter werden für eine bessere mobile Ansicht zusammengefasst -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Navigation ein-/ausblenden</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">blog-lukas.de</a>
+            </div>
+
+            <!-- Alle Navigationslinks, Formulare und anderer Inhalt werden hier zusammengefasst und können dann ein- und ausgeblendet werden -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav navbar-right">
+                <li class="active"><a href="#home">Home<span class="sr-only">(aktuell)</span></a></li>
+                <li><a href="#about-me">About Me</a></li>
+                <li><a href="#projects">Blog</a></li>
+                <li><a href="#contact">Kontakt</a></li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
+        
+        <div class="jumbotron" id="my-jumbotron">
+          <div class="container" id="home">
+              <div id="description">
+                <h1>Lukas Kraus</h1>
+                <h2>Status: SW-Entwickler</h2>  
+              </div>
+              
+              <div id="picture">
+                <img src="assets/media/Lukas2.png" alt="Lukas Kraus">
+              </div>
+          </div>
+        </div>
+        
+        
+        <div class="container" id="about-me">
+          <h2>Über mich</h2>
+          <div id="entry">
+            <p><span id="intro">Hi, ich bin Lukas.</span> Aktuell bin ich als Softwareentwickler tätig. Davor studierte ich Elektro- und Informationstechnik an der Hochschule für angewandte Wissenschaften Würzburg-Schweinfurt. Neben der zu bewältigenden Masterarbeit war ich hier Mitglied im Team SWOT. Gemeinsam nahmen wir 2021 am Wettbewerb RoboCup@Work teil und gewannen als neues Team den 4. Platz.</p>
+            
+            <p>In meiner Freizeit tanze ich gerne Standard (bspw. Discofox, Salsa ...), gehe mit Freunden Bouldern und Reise gerne. Neben der Entwicklung von Software für Applikationen und Roboter gehört auch Webprogrammierung zu meinen Hobbies. Das Ergebnis seht ihr hier auf meiner Website, wo ich meine Skills übe und sogleich meine aktuellen Projekte und letzten Urlaube aufliste.</p>
+          </div>
+          
+          <h3>Fähigkeiten</h3>
+          <div class="row text-center">
+            <div class="col-sm-6 col-md-4" id="faehigkeiten">
+              <div class="thumbnail">
+                <img src="assets/media/robot1Pixabay.png" alt="..."> 
+                <div class="caption">
+                  <h3>Betriebssysteme <span class="badge font-style-normal">3</span></h3>
+                </div>
+                <div class="skill-entries">
+                  <ul>
+                    <li>Windows</li>  
+                    <li>Linux</li>
+                    <li>ROS</li>
+                  </ul>
+                </div> 
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4" id="faehigkeiten">
+              <div class="thumbnail">
+                <img src="assets/media/programmer1Pixabay.png" alt="...">
+                <div class="caption">
+                  <h3>Programmiersprachen <span class="badge font-style-normal">6</span></h3>
+                </div>
+                <div class="skill-entries">
+                  <ul>
+                    <li>Python</li>  
+                    <li>C++</li>
+                    <li>Java</li>
+                    <li>JavaScript</li>
+                    <li>CSS</li>
+                    <li>HTML</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-4" id="faehigkeiten">
+              <div class="thumbnail">
+                <img src="assets/media/question1Pixabay.jpg" alt="...">
+                <div class="caption">
+                  <h3>Sonstiges <span class="badge font-style-normal">4</span></h3>
+                </div>
+                <div class="skill-entries">
+                  <ul>
+                    <li>MS Office</li>  
+                    <li>Latex</li>
+                    <li>PCL</li>
+                    <li>Git</li>
+                  </ul>
+                </div>  
+              </div>
+            </div>
+         </div>
+        </div>
+        
+        
+         <div class="container" id="projects">
+           <h2>Projekte & Urlaub</h2>
+          
+           <div>
+             <p><span id="intro">Hey! </span>Hier lade ich alles hoch, was mir in den Sinn kommt. Schaut rein <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-smile" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/></svg>.</p>        
+           </div>
+        
+           <div class="row">
+             <div class="col-sm-6 col-md-4">
+               <a href="blog-details/roboCupAtWork1.html">
+                 <div class="thumbnail">
+                   <img src="assets/media/roboCupAtWork1/RoboCup@Work_theRobot1.png" alt="RoboCup@Work mobiler Roboter"> 
+                   <div class="caption">
+                     <h3>RoboCup@Work</h3>
+                     <div>Posted on 24 Oktober 2021</div>
+                  </div>
+                <div id="skill-entries"></div>
+               </div>
+             </a>
+           </div>
+               
+             <div class="col-sm-6 col-md-4">
+               <a href="blog-details/osloNorwegen1.html">
+                 <div class="thumbnail">
+                   <img src="assets/media/osloNorwegen1/VigelandSkulpturen5.png" alt="Oslo Bild"> 
+                   <div class="caption">
+                     <h3>Reise nach Oslo</h3>
+                     <div>Posted on 04 November 2021</div>
+                  </div>
+                <div id="skill-entries"></div>
+               </div>
+             </a>
+           </div>
+
+           <div class="col-sm-6 col-md-4">
+            <a href="https://github.com/krauluk1/AoC-2021" target="_blank">
+              <div class="thumbnail">
+                <img src="assets/media/adventOfCode2021/Raetsel_Pixabay1.jpg" alt="Fragezeichen"> 
+                <div class="caption">
+                  <h3>Advent of Code 2021</h3>
+                  <div>Meine Lösungen zum Event</div>
+               </div>
+             <div id="skill-entries"></div>
+            </div>
+          </a>
+        </div>
+        </div>          
+      </div>
+
+        
+        <div class="container" id="contact">
+          <h2>Kontakt</h2>
+          <div class="row text-center">
+            <div class="col-sm-6 col-md-4" id="media">
+              <div class="thumbnail clear-all">
+                <img src="assets/media/kontakt1Pixabay.jpg" alt="contact">
+                <div class="caption">
+                  <h3>See me on:</h3>
+                </div>
+                <div class="social-media">
+                  <div class="zone">
+                      <a href="https://www.linkedin.com/in/lukaskraus97/" target="_blank" rel="noopener noreferrer" data-toggle="tooltip" data-placement="bottom" title="https://www.linkedin.com/in/lukaskraus97/"><i class="fab fa-linkedin fa-3x"></i></a>
+                  </div>
+                  <div class="zone">
+                      <a href="https://www.xing.com/profile/Lukas_Kraus13/" target="_blank" rel="noopener noreferrer" data-toggle="tooltip" data-placement="bottom" title="https://www.xing.com/profile/Lukas_Kraus13/"><i class="fab fa-xing-square fa-3x"></i></a>
+                  </div>
+                  <!--<div class="zone">
+                    <a href="https://github.com/krauluk1/" target="_blank" rel="noopener noreferrer" data-toggle="tooltip" data-placement="bottom" title="https://github.com/krauluk1/"><i class="fab fa-github-square fa-3x"></i></a>
+                  </div>
+                  <div class="zone">
+                    <a href="https://gitlab.com/krauluk1/" target="_blank" rel="noopener noreferrer" data-toggle="tooltip" data-placement="bottom" title="https://gitlab.com/krauluk1/"><i class="fab fa-gitlab fa-3x"></i></a>
+                  </div>-->
+              </div>      
+            </div>
+          </div>
+        </div>
+      </div>  
+        
+        <footer class="page-footer" id="my-footer">
+          <div class="container">
+            <div class="row text-center">
+              <div class="col-md-4">
+                <a href="datenschutz.html">Datenschutz</a>
+              </div>
+              <div class="col-md-4">
+                <p>Copyright &copy; 2021 Lukas Kraus</p>
+              </div>
+              <div class="col-md-4">
+                <a href="impressum.html">Impressum</a>
+              </div>      
+            </div>
+          </div>
+        </footer>
+        
+        <script type="text/javascript" src="assets/js/jquery.js"></script>
+        <script type="text/javascript" src="assets/js/bootstrap.js"></script>
+        <script type="text/javascript" src="assets/js/theme.js"></script>
+            
+    </body>
+
 </html>

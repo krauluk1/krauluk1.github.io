@@ -1,0 +1,23 @@
+Raetsel_Pixabay1.jpg
+src = https://pixabay.com/de/illustrations/fragezeichen-wichtig-unterzeichnen-1872665/
+autor = qimono
+
+background2Pixabay.jpg
+src = https://pixabay.com/de/illustrations/hintergrund-textur-muster-abstrakt-3301487/
+autor = natassa64
+
+kontakt1Pixabay.jpg
+src = https://pixabay.com/de/illustrations/treffen-beziehung-gesch%c3%a4ft-1019875/
+autor = Peggy_Marco
+
+programmer1Pixabay.png
+src = https://pixabay.com/de/vectors/programmierer-tippen-silhouette-ceo-3606210/
+autor = mohamed_hassan
+
+question1Pixabay.jpg
+src = https://pixabay.com/de/illustrations/bin%c3%a4r-bin%c3%a4rcode-fragezeichen-3725327/
+autor = geralt
+
+robot1Pixabay.png
+src = https://pixabay.com/de/illustrations/au%c3%9ferirdischer-roboter-android-1905155/
+autor = maciej326
