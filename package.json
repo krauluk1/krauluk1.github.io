@@ -1,0 +1,19 @@
+{
+  "name": "krauluk1-gamified-portfolio",
+  "version": "2.0.0",
+  "description": "Lukas Kraus - Interactive Gamified Autonomous Systems & Robotics Portfolio",
+  "scripts": {
+    "start": "npx serve -l 8000 .",
+    "test": "node scripts/test-assets.js"
+  },
+  "keywords": [
+    "portfolio",
+    "robotics",
+    "autonomous-driving",
+    "adas",
+    "gamification",
+    "interactive"
+  ],
+  "author": "Lukas Kraus",
+  "license": "MIT"
+}
