@@ -75,6 +75,11 @@ export class ParticleSystem {
 
       this.particles.push(new Particle(x, y, vx, vy, color, particleLife, size, decay, type));
     }
+
+    // Defensive particle ceiling to prevent memory leaks and mobile frame drops
+    if (this.particles.length > 250) {
+      this.particles.splice(0, this.particles.length - 250);
+    }
   }
 
   emitRoverExhaust(x, y, angle, speedRatio) {
@@ -93,6 +98,9 @@ export class ParticleSystem {
 
   emitShockwave(x, y, color = '#00ff88', maxRadius = 40) {
     this.particles.push(new Particle(x, y, 0, 0, color, 0.4, maxRadius, 1, 'ring'));
+    if (this.particles.length > 250) {
+      this.particles.splice(0, this.particles.length - 250);
+    }
   }
 
   emitExplosion(x, y, color = '#ff007f', count = 25) {
@@ -112,8 +120,8 @@ export class ParticleSystem {
       const offsetX = (Math.random() - 0.5) * 400;
       const offsetY = (Math.random() - 0.5) * 300;
       const color = colors[b % colors.length];
-      this.emitExplosion(centerX + offsetX, centerY + offsetY, color, 30);
-      this.emitShockwave(centerX + offsetX, centerY + offsetY, color, 80);
+      this.emitExplosion(centerX + offsetX, centerY + offsetY, color, 25);
+      this.emitShockwave(centerX + offsetX, centerY + offsetY, color, 70);
     }
   }
 
@@ -122,6 +130,7 @@ export class ParticleSystem {
   }
 
   render(ctx) {
+    if (!ctx) return;
     for (let i = 0; i < this.particles.length; i++) {
       this.particles[i].render(ctx);
     }

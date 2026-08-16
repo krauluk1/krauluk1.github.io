@@ -38,9 +38,10 @@ export class EventBus {
    */
   emit(eventName, data) {
     if (!this.listeners.has(eventName)) return;
-    this.listeners.get(eventName).forEach(cb => {
+    const callbacks = this.listeners.get(eventName).slice();
+    callbacks.forEach(cb => {
       try {
-        cb(data);
+        if (typeof cb === 'function') cb(data);
       } catch (err) {
         console.error(`Error handling event "${eventName}":`, err);
       }

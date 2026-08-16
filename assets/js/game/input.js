@@ -14,12 +14,37 @@ export class InputManager {
     this.initKeyboard();
     this.initPointerAndTouch();
     this.initVirtualDpad();
+    this.initFocusHandlers();
+  }
+
+  isModalActive() {
+    const modal = document.getElementById('dossier-modal');
+    return !!(modal && modal.classList.contains('active'));
+  }
+
+  initFocusHandlers() {
+    // Defensive reset on tab switch / window blur to prevent ghost driving
+    window.addEventListener('blur', () => {
+      this.keys = {};
+      if (this.rover && this.rover.inputs) {
+        this.rover.inputs.forward = false;
+        this.rover.inputs.backward = false;
+        this.rover.inputs.left = false;
+        this.rover.inputs.right = false;
+      }
+    });
   }
 
   initKeyboard() {
     window.addEventListener('keydown', (e) => {
-      this.sound.init(); // Initialize audio on user gesture
-      const key = e.key.toLowerCase();
+      if (this.sound && typeof this.sound.init === 'function') {
+        this.sound.init(); // Initialize audio on user gesture
+      }
+
+      // Ignore driving inputs if user is viewing a modal/dossier
+      if (this.isModalActive()) return;
+
+      const key = (e.key || '').toLowerCase();
       this.keys[key] = true;
 
       if (['arrowup', 'w'].includes(key)) this.rover.inputs.forward = true;
@@ -37,7 +62,7 @@ export class InputManager {
     });
 
     window.addEventListener('keyup', (e) => {
-      const key = e.key.toLowerCase();
+      const key = (e.key || '').toLowerCase();
       this.keys[key] = false;
 
       if (['arrowup', 'w'].includes(key)) this.rover.inputs.forward = false;
@@ -51,13 +76,17 @@ export class InputManager {
     if (!this.canvas) return;
 
     const handleCanvasTap = (clientX, clientY) => {
-      this.sound.init();
+      if (this.isModalActive()) return;
+
+      if (this.sound && typeof this.sound.init === 'function') {
+        this.sound.init();
+      }
       const rect = this.canvas.getBoundingClientRect();
       const screenX = clientX - rect.left;
       const screenY = clientY - rect.top;
 
-      const worldX = screenX + this.camera.x;
-      const worldY = screenY + this.camera.y;
+      const worldX = screenX + (this.camera ? this.camera.x : 0);
+      const worldY = screenY + (this.camera ? this.camera.y : 0);
 
       this.rover.setWaypoint(worldX, worldY);
     };
@@ -73,7 +102,7 @@ export class InputManager {
     let touchStartY = 0;
 
     this.canvas.addEventListener('touchstart', (e) => {
-      if (e.touches.length === 1) {
+      if (e.touches && e.touches.length === 1) {
         touchStartTime = Date.now();
         touchStartX = e.touches[0].clientX;
         touchStartY = e.touches[0].clientY;
@@ -81,7 +110,7 @@ export class InputManager {
     }, { passive: true });
 
     this.canvas.addEventListener('touchend', (e) => {
-      if (e.changedTouches.length === 1) {
+      if (e.changedTouches && e.changedTouches.length === 1) {
         const touchEndTime = Date.now();
         const touchEndX = e.changedTouches[0].clientX;
         const touchEndY = e.changedTouches[0].clientY;
@@ -100,29 +129,38 @@ export class InputManager {
       const btn = document.getElementById(btnId);
       if (!btn) return;
 
+      let isPressed = false;
+
       const start = (e) => {
-        if (e.cancelable) e.preventDefault();
-        this.sound.init();
+        if (isPressed) return;
+        isPressed = true;
+        if (e && e.cancelable) e.preventDefault();
+        if (this.sound && typeof this.sound.init === 'function') this.sound.init();
         btn.classList.add('active');
         onStart();
       };
 
       const end = (e) => {
-        if (e.cancelable) e.preventDefault();
+        if (!isPressed) return;
+        isPressed = false;
+        if (e && e.cancelable) e.preventDefault();
         btn.classList.remove('active');
         onEnd();
       };
 
-      // Pointer events for maximum cross-browser mobile support
-      btn.addEventListener('pointerdown', start);
-      btn.addEventListener('pointerup', end);
-      btn.addEventListener('pointercancel', end);
-      btn.addEventListener('pointerleave', end);
-
-      // Touch events fallback
-      btn.addEventListener('touchstart', start, { passive: false });
-      btn.addEventListener('touchend', end, { passive: false });
-      btn.addEventListener('touchcancel', end, { passive: false });
+      if (window.PointerEvent) {
+        btn.addEventListener('pointerdown', start);
+        btn.addEventListener('pointerup', end);
+        btn.addEventListener('pointercancel', end);
+        btn.addEventListener('pointerleave', end);
+      } else {
+        btn.addEventListener('touchstart', start, { passive: false });
+        btn.addEventListener('touchend', end, { passive: false });
+        btn.addEventListener('touchcancel', end, { passive: false });
+        btn.addEventListener('mousedown', start);
+        btn.addEventListener('mouseup', end);
+        btn.addEventListener('mouseleave', end);
+      }
     };
 
     // Forward
@@ -154,7 +192,7 @@ export class InputManager {
       () => {
         this.rover.clearWaypoint();
         this.rover.speed *= 0.2;
-        this.sound.playBump();
+        if (this.sound && typeof this.sound.playBump === 'function') this.sound.playBump();
       },
       () => {}
     );

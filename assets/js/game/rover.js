@@ -47,10 +47,15 @@ export class Rover {
   }
 
   setWaypoint(x, y) {
+    if (typeof x !== 'number' || typeof y !== 'number' || isNaN(x) || isNaN(y)) return;
     this.targetWaypoint = { x, y };
     this.isAutoNavigating = true;
-    this.particles.emitShockwave(x, y, '#00e5ff', 25);
-    this.sound.playPing(600);
+    if (this.particles && typeof this.particles.emitShockwave === 'function') {
+      this.particles.emitShockwave(x, y, '#00e5ff', 25);
+    }
+    if (this.sound && typeof this.sound.playPing === 'function') {
+      this.sound.playPing(600);
+    }
   }
 
   clearWaypoint() {
@@ -59,6 +64,12 @@ export class Rover {
   }
 
   update(dt, world) {
+    // Defensive NaN recovery
+    if (isNaN(this.x) || isNaN(this.y)) {
+      this.x = 1600;
+      this.y = 1600;
+      this.speed = 0;
+    }
     // 1. Handle autonomous waypoint navigation if set
     if (this.isAutoNavigating && this.targetWaypoint) {
       const dx = this.targetWaypoint.x - this.x;

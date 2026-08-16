@@ -44,12 +44,15 @@ export class GameEngine {
   }
 
   handleResize() {
-    const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth || 800;
-    const height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight || 600;
+    const width = window.innerWidth || document.documentElement?.clientWidth || document.body?.clientWidth || 800;
+    const height = window.innerHeight || document.documentElement?.clientHeight || document.body?.clientHeight || 600;
     
-    if (this.canvas.width !== width || this.canvas.height !== height) {
-      this.canvas.width = width;
-      this.canvas.height = height;
+    const validWidth = Math.max(320, width);
+    const validHeight = Math.max(240, height);
+
+    if (this.canvas.width !== validWidth || this.canvas.height !== validHeight) {
+      this.canvas.width = validWidth;
+      this.canvas.height = validHeight;
     }
   }
 
@@ -61,17 +64,23 @@ export class GameEngine {
     this.lastTime = performance.now();
     // Render initial frame immediately so viewport is never blank or uncentered
     this.render();
-    requestAnimationFrame((t) => this.loop(t));
+    this.animId = requestAnimationFrame((t) => this.loop(t));
   }
 
   stop() {
     this.isRunning = false;
+    if (this.animId) {
+      cancelAnimationFrame(this.animId);
+      this.animId = null;
+    }
   }
 
   loop(currentTime) {
     if (!this.isRunning) return;
 
-    const dt = Math.min((currentTime - this.lastTime) / 1000, 0.1);
+    // Defensive time delta calculation (clamped to [1ms, 100ms] to avoid zero/negative deltas)
+    const elapsed = (currentTime - this.lastTime) / 1000;
+    const dt = Math.min(Math.max(isNaN(elapsed) ? 0.016 : elapsed, 0.001), 0.1);
     this.lastTime = currentTime;
 
     try {
@@ -84,7 +93,9 @@ export class GameEngine {
       console.error('Error in game loop frame:', err);
     }
 
-    requestAnimationFrame((t) => this.loop(t));
+    if (this.isRunning) {
+      this.animId = requestAnimationFrame((t) => this.loop(t));
+    }
   }
 
   update(dt) {
@@ -112,6 +123,8 @@ export class GameEngine {
   }
 
   render() {
+    if (!this.ctx) return;
+
     // Clear screen
     this.ctx.fillStyle = '#090d16';
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
