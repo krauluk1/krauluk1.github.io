@@ -74,6 +74,7 @@ async function runTests() {
   const osloArt = articlesData.oslo;
   const danceArt = articlesData.dancing;
   assert(robocupArt && robocupArt.youtubeEmbedUrl === 'https://www.youtube.com/embed/N4QOX2h8s7Y', 'RoboCup article contains valid YouTube embed URL');
+  assert(JSON.stringify(robocupArt).includes('3D Vision & Object Recognition') && JSON.stringify(robocupArt).includes('Robotic Arm Manipulation'), 'RoboCup article clearly details Lukas Kraus responsibility for 3D Vision (PCL) and robotic grasping');
   assert(osloArt && osloArt.gallery.length === 4, 'Oslo article contains 4 gallery items');
   assert(danceArt && danceArt.wsdcProfile.wsdcId === '28427', 'Dancing article contains WSDC ID 28427');
 
