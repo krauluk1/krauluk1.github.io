@@ -109,7 +109,7 @@ async function runTests() {
   assert(privRes.statusCode === 200 && privRes.body.includes('General Data Protection Regulation'), 'privacy.html is GDPR compliant in English');
 
   const noticeRes = await fetchUrl('http://localhost:8000/legal-notice.html');
-  assert(noticeRes.statusCode === 200 && noticeRes.body.includes('German Telemedia Act'), 'legal-notice.html is §5 TMG compliant in English');
+  assert(noticeRes.statusCode === 200 && (noticeRes.body.includes('Digital Services Act') || noticeRes.body.includes('DDG')), 'legal-notice.html is §5 DDG compliant in English');
 
   // 7. Validate Obstacle Physics & World in world.js
   const worldJs = fs.readFileSync(path.join(ROOT_DIR, 'assets/js/game/world.js'), 'utf8');

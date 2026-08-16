@@ -44,7 +44,7 @@
   },
   "legalNotice": {
     "title": "Legal Notice / Imprint",
-    "subtitle": "Information pursuant to Section 5 of the German Telemedia Act (TMG)",
+    "subtitle": "Information pursuant to Section 5 of the German Digital Services Act (DDG)",
     "provider": {
       "name": "Lukas Kraus",
       "role": "Software Engineer (Embedded / Automotive & Robotics)",
@@ -53,12 +53,12 @@
     },
     "sections": [
       {
-        "heading": "Information Pursuant to § 5 TMG",
+        "heading": "Information Pursuant to § 5 DDG",
         "content": "<strong>Lukas Kraus</strong><br>Software Engineer (Autonomous Systems & Robotics)<br>Email: <a href=\"mailto:krauluk1@gmail.com\">krauluk1@gmail.com</a>"
       },
       {
         "heading": "Liability for Content",
-        "content": "As a service provider, we are responsible for our own content on these pages under general law pursuant to § 7 (1) TMG. According to §§ 8 to 10 TMG, we are not obligated to monitor transmitted or stored third-party information or to investigate circumstances indicating illegal activity. Obligations to remove or block the use of information under general laws remain unaffected."
+        "content": "As a service provider, we are responsible for our own content on these pages under general law pursuant to § 7 (1) DDG. According to §§ 8 to 10 DDG, we are not obligated to monitor transmitted or stored third-party information or to investigate circumstances indicating illegal activity. Obligations to remove or block the use of information under general laws remain unaffected."
       },
       {
         "heading": "Liability for External Links",
