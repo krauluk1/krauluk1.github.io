@@ -100,10 +100,46 @@ export class WorldMap {
     // Sector decals and zone layout
     this.initFeatures();
 
-    // Listen to reset
+    // Listen to game events & state synchronization
     this.events.on('gameReset', () => {
       this.sectors.forEach(s => s.unlocked = false);
       this.collectables.forEach(c => c.collected = false);
+    });
+
+    this.events.on('stateLoaded', ({ unlockedSectors, collectedItems }) => {
+      this.syncSavedState(unlockedSectors, collectedItems);
+    });
+
+    this.events.on('fastPassUnlocked', () => {
+      this.sectors.forEach(s => s.unlocked = true);
+      this.collectables.forEach(c => c.collected = true);
+    });
+
+    this.events.on('sectorUnlocked', (sectorId) => {
+      const sec = this.sectors.find(s => s.id === sectorId);
+      if (sec) sec.unlocked = true;
+    });
+
+    this.events.on('itemCollected', (item) => {
+      const c = this.collectables.find(it => it.id === (item.id || item));
+      if (c) c.collected = true;
+    });
+  }
+
+  syncSavedState(unlockedSectorIds = [], collectedItemIds = []) {
+    const unlockedSet = new Set(unlockedSectorIds);
+    const collectedSet = new Set(collectedItemIds);
+
+    this.sectors.forEach(s => {
+      if (unlockedSet.has(s.id)) {
+        s.unlocked = true;
+      }
+    });
+
+    this.collectables.forEach(c => {
+      if (collectedSet.has(c.id)) {
+        c.collected = true;
+      }
     });
   }
 
