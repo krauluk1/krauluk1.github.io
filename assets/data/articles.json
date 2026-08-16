@@ -1,0 +1,164 @@
+{
+  "robocup": {
+    "id": "robocup",
+    "slug": "robocup",
+    "title": "Autonomous Mobile Manipulation at RoboCup@Work 2021",
+    "subtitle": "3D Computer Vision (PCL) & Robotic Grasping with UR3e Collaborative Arm",
+    "category": "Sector 02 • Academic Education & 3D Vision Lab",
+    "date": "October 24, 2021",
+    "author": "Lukas Kraus",
+    "achievement": "Team SWOT • 4th Place Worldwide",
+    "heroImage": "assets/media/roboCupAtWork1/RoboCup@Work_theRobot1.png",
+    "youtubeEmbedUrl": "https://www.youtube.com/embed/N4QOX2h8s7Y",
+    "responsibility": "Within Team SWOT, I was responsible for the object detection, the gripping point detection (using 3D Computer Vision and PCL), and the autonomous gripping itself with the robotic manipulator arm.",
+    "sections": [
+      {
+        "heading": "My Engineering Responsibility in Team SWOT",
+        "content": "Within Team SWOT, I was responsible for the object detection, the gripping point detection (using 3D Computer Vision and PCL), and the autonomous gripping itself with the robotic manipulator arm."
+      },
+      {
+        "heading": "About RoboCup@Work",
+        "content": "The RoboCup@Work league is a premier international benchmark competition in autonomous robotics designed to accelerate applied research for Industry 4.0 and smart manufacturing. University and research teams from across the globe compete to solve complex logistics, perception, grasping, and mobile manipulation tasks under real-world factory constraints.",
+        "link": {
+          "label": "Official RoboCup@Work League",
+          "url": "https://atwork.robocup.org/"
+        }
+      },
+      {
+        "heading": "The Challenge: Basic Manipulation Test (BMT)",
+        "content": "In RoboCup@Work, autonomous robots must execute dynamic mission orders communicated by a central referee box. As the newly founded team SWOT at FHWS (University of Applied Sciences Würzburg-Schweinfurt), our primary mission was mastering the Basic Manipulation Test (BMT). The BMT validates core robotic capabilities: autonomous navigation, 3D object detection, gripping point calculation, and precision component placement on varied industrial surfaces."
+      },
+      {
+        "heading": "Hardware Platform: Team SWOT",
+        "content": "Our mobile manipulator integrates industrial-grade embedded hardware:",
+        "list": [
+          "Omnidirectional Mobile Base: Custom chassis by Evocortex GmbH equipped with Mecanum wheels.",
+          "LiDAR Safety & Localization: Dual Sick TiM561 2D LiDAR scanners mounted diagonally for 360° SLAM.",
+          "6-DoF Robotic Arm & End-Effector: Universal Robots UR3e collaborative arm with a Robotiq Hand-E precision parallel gripper.",
+          "3D Eye-in-Hand Vision: Intel RealSense D435i depth camera mounted directly on the gripper flange for point cloud capture."
+        ]
+      },
+      {
+        "heading": "Worldwide Results & Master's Thesis",
+        "content": "As a newcomer team at the RoboCup@Work 2021 World Championship, Team SWOT achieved an outstanding 4th place worldwide. The 3D vision object detection and gripping algorithms developed for this competition also served as the foundation of my Master of Engineering thesis at FHWS (graded 1.3)."
+      }
+    ],
+    "tags": ["RoboCup@Work", "ROS", "PCL", "UR3e", "Team SWOT", "Mobile Manipulation", "C++", "Linux"]
+  },
+  "oslo": {
+    "id": "oslo",
+    "slug": "oslo",
+    "title": "Highlights & Architecture in Oslo, Norway",
+    "subtitle": "Nordic Architecture, Fjord Landscapes, Maritime Heritage & Cultural Expeditions",
+    "category": "Sector 05 • Off-Duty Basecamp & Passions",
+    "date": "November 4, 2021",
+    "author": "Lukas Kraus",
+    "heroImage": "assets/media/oslo/VigelandSkulpturen5.png",
+    "heroCaption": "Vigeland Sculpture Park — High-Resolution Panoramas",
+    "sections": [
+      {
+        "heading": "Impressions from the Nordic Fjord Capital",
+        "content": "The Norwegian capital of Oslo captivates visitors with its seamless fusion of cutting-edge modern architecture, pristine fjord landscapes, sustainable urban infrastructure, and rich cultural history."
+      }
+    ],
+    "gallery": [
+      {
+        "name": "Norsk Folkemuseum",
+        "image": "assets/media/oslo/freilichtMuseum.PNG",
+        "desc": "Traditional Norwegian wooden architecture and historic stave churches spanning the Middle Ages to modern times on the Bygdøy Peninsula.",
+        "caption": "Norsk Folkemuseum — Traditional Timber Architecture",
+        "mapsUrl": "https://maps.google.com/?q=Norsk+Folkemuseum+Oslo"
+      },
+      {
+        "name": "Fram Polar Ship Museum",
+        "image": "assets/media/oslo/framMuseum.PNG",
+        "desc": "The epic history of Arctic and Antarctic explorations by Fridtjof Nansen, Otto Sverdrup, and Roald Amundsen aboard the historic vessel Fram.",
+        "caption": "Fram Polar Ship Museum — Arctic Expeditions",
+        "mapsUrl": "https://maps.google.com/?q=Fram+Museum+Oslo"
+      },
+      {
+        "name": "Vigelandsanlegget",
+        "image": "assets/media/oslo/vigelandSkulpturen.PNG",
+        "desc": "The world's largest sculpture park by a single artist, featuring over 200 granite and bronze figures capturing the full cycle of human emotion and life.",
+        "caption": "Vigeland Park — Granite and Bronze Sculptures",
+        "mapsUrl": "https://maps.google.com/?q=Vigeland+Park+Oslo"
+      },
+      {
+        "name": "Oslo Opera House & Fjord Walk",
+        "image": "assets/media/oslo/fjordOper.PNG",
+        "desc": "Walkable angled white Italian marble roof with panoramic fjord views, accompanied by open-air social Salsa and Bachata dancing on the waterfront.",
+        "caption": "Oslo Opera House — Waterfront Architecture",
+        "mapsUrl": "https://maps.google.com/?q=Oslo+Opera+House"
+      }
+    ],
+    "tags": ["Travel Photography", "Oslo", "Norway", "Fjords", "Architecture", "Museums"]
+  },
+  "dancing": {
+    "id": "dancing",
+    "slug": "dancing",
+    "title": "The Dynamics of Partner Dancing: Social Connection & WSDC Competition",
+    "subtitle": "Ballroom Standard & Latin, Salsa, Bachata, Kizomba, and Competitive West Coast Swing (WCS)",
+    "category": "Sector 05 • Off-Duty Basecamp & Passions",
+    "date": "June 20, 2026",
+    "author": "Lukas Kraus",
+    "achievement": "WSDC ID: 28427 • BaroqueSwing Finalist (1 Point)",
+    "heroImage": "assets/media/Lukas2.png",
+    "wsdcProfile": {
+      "name": "Lukas Kraus",
+      "wsdcId": "28427",
+      "registryUrl": "https://worldsdc.com/registry/?wsdc=28427",
+      "role": "Leader",
+      "level": "Newcomer / Novice (NOV)",
+      "firstPoint": "BaroqueSwing 2026 (Ludwigsburg, Germany) — Finalist (1 Point)"
+    },
+    "sections": [
+      {
+        "heading": "A Lifelong Passion for Rhythm & Movement",
+        "content": "Balancing intense software engineering and mathematical problem-solving with the physical, dynamic realm of partner dancing has been one of my most rewarding pursuits. Partner dancing is not merely choreography; it is an intuitive real-time communication protocol between two dancers, driven by musicality, elasticity, and spatial awareness."
+      },
+      {
+        "heading": "The Diverse Dance Spectrum",
+        "danceCards": [
+          {
+            "title": "Standard & Latin Ballroom",
+            "icon": "fas fa-gem",
+            "color": "#00e5ff",
+            "desc": "The foundation of partner movement: mastering rigid frame posture, swing-and-sway mechanics (Waltz, Quickstep, Tango), and sharp syncopated hip action (Cha-Cha, Rumba, Jive)."
+          },
+          {
+            "title": "Salsa & Bachata",
+            "icon": "fas fa-fire",
+            "color": "#f59e0b",
+            "desc": "Energetic social floor staples: Cuban and Cross-body Salsa turns, polyrhythmic musical timing, and sensual Dominican/Sensual Bachata body isolations."
+          },
+          {
+            "title": "Kizomba",
+            "icon": "fas fa-heart",
+            "color": "#a855f7",
+            "desc": "Deep grounded connection originating from Angola, focusing on subtle torso lead, smooth weight transfers, and intimate musical connection."
+          },
+          {
+            "title": "West Coast Swing (WCS)",
+            "icon": "fas fa-wave-square",
+            "color": "#ff007f",
+            "desc": "A linear, slotted dance characterized by elastic tension/compression, dynamic lead-follow improvisation, and adaptability to contemporary Pop, Blues, RnB, and Acoustic music."
+          }
+        ]
+      },
+      {
+        "heading": "WSDC Competition & The BaroqueSwing Milestone",
+        "content": "In the global West Coast Swing community, dancers compete under the official sanctioned guidelines of the World Swing Dance Council (WSDC) in randomized Jack & Jill competitions—where leaders and followers are randomly paired and dance to unannounced music."
+      },
+      {
+        "heading": "Parallels Between Dancing & Software Engineering",
+        "content": "Much like architecting distributed systems or mobile manipulation pipelines in robotics, partner dancing relies on precise control loops:",
+        "list": [
+          "Low-Latency Feedback: Continuous micro-adjustments through physical connection and visual cues.",
+          "Deterministic Frameworks with Dynamic Execution: Adhering to timing and slot rules while improvising freely to musical accents.",
+          "Empathy & Team Synergy: Enabling both partners to express their creativity seamlessly on the floor."
+        ]
+      }
+    ],
+    "tags": ["Partner Dance", "West Coast Swing", "WSDC Competitor", "BaroqueSwing", "Salsa", "Bachata", "Ballroom"]
+  }
+}

@@ -1,0 +1,67 @@
+name: CI & Deployment Verification
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # Quality & Security Audit
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run Integrity & Privacy Tests
+        run: node scripts/test-assets.js
+
+      - name: HTML5 / Link Check Validation
+        run: |
+          echo "Verifying HTML structure and static assets..."
+          test -f index.html
+          test -f pages/legal-notice.html
+          test -f pages/privacy.html
+          test -f pages/article-robocup.html
+          test -f pages/article-oslo.html
+          test -f pages/article-dancing.html
+
+  # Deploy to GitHub Pages (Only on push to main)
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: validate
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
