@@ -24,6 +24,7 @@ export class HUDController {
     this.progressText = document.getElementById('hud-progress-text');
     this.soundToggleBtn = document.getElementById('sound-toggle-btn');
     this.fastPassBtn = document.getElementById('fast-pass-btn');
+    this.resetBtn = document.getElementById('reset-btn');
     this.codexBtn = document.getElementById('codex-btn');
 
     this.modal = document.getElementById('dossier-modal');
@@ -99,6 +100,13 @@ export class HUDController {
     if (this.fastPassBtn) {
       this.fastPassBtn.addEventListener('click', () => {
         this.unlockAllFastPass();
+      });
+    }
+
+    // Reset Progress Button (Front-page HUD)
+    if (this.resetBtn) {
+      this.resetBtn.addEventListener('click', () => {
+        this.resetProgress();
       });
     }
 

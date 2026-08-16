@@ -290,76 +290,180 @@ body {
   display: block;
 }
 
+/* Reset Action Button */
+.cyber-btn-reset {
+  border-color: rgba(244, 63, 94, 0.5);
+  color: #fda4af;
+}
+
+.cyber-btn-reset:hover {
+  border-color: #f43f5e;
+  color: #fff;
+  box-shadow: 0 0 16px rgba(244, 63, 94, 0.4);
+  background: rgba(244, 63, 94, 0.15);
+}
+
 /* Mobile Virtual Touch D-Pad */
 .touch-controls {
   display: none;
-  position: absolute;
-  bottom: 20px;
+  position: fixed;
+  bottom: 24px;
   left: 20px;
-  width: 140px;
-  height: 140px;
   pointer-events: auto;
-  z-index: 20;
+  z-index: 90;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.dpad-middle-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
 }
 
 .dpad-btn {
-  position: absolute;
-  width: 44px;
-  height: 44px;
-  background: rgba(15, 23, 42, 0.85);
-  border: 1px solid var(--border-cyan);
-  border-radius: 10px;
+  width: 48px;
+  height: 48px;
+  background: rgba(15, 23, 42, 0.88);
+  border: 1.5px solid var(--border-cyan);
+  border-radius: 12px;
   color: var(--cyan);
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 18px;
-  backdrop-filter: blur(8px);
+  font-size: 19px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), inset 0 0 8px rgba(0, 229, 255, 0.1);
+  transition: transform 0.1s ease, background 0.1s ease, box-shadow 0.1s ease;
+  touch-action: none;
+  cursor: pointer;
 }
 
-.dpad-btn.active,
-.dpad-btn:active {
+.dpad-btn:active,
+.dpad-btn.active {
   background: var(--cyan);
-  color: #000;
-  box-shadow: 0 0 12px var(--cyan);
+  color: #050b14;
+  box-shadow: 0 0 20px var(--cyan);
+  transform: scale(0.92);
 }
 
-#touch-up {
-  top: 0;
-  left: 48px;
+.dpad-center {
+  width: 44px;
+  height: 44px;
+  font-size: 14px;
+  color: #fda4af;
+  border-color: rgba(244, 63, 94, 0.6);
+  background: rgba(30, 20, 35, 0.85);
 }
 
-#touch-down {
-  bottom: 0;
-  left: 48px;
+.dpad-center:active,
+.dpad-center.active {
+  background: #f43f5e;
+  color: #fff;
+  box-shadow: 0 0 16px #f43f5e;
 }
 
-#touch-left {
-  top: 48px;
-  left: 0;
-}
-
-#touch-right {
-  top: 48px;
-  right: 0;
-}
-
-@media (max-width: 768px),
-(pointer: coarse) {
+/* Mobile Responsiveness & Touch Adjustments */
+@media (max-width: 768px), (pointer: coarse) {
   .touch-controls {
-    display: block;
+    display: flex;
+  }
+
+  .hud-top-bar {
+    padding: 8px 12px;
+    gap: 8px;
+  }
+
+  .hud-brand {
+    gap: 8px;
+  }
+
+  .brand-avatar {
+    width: 38px;
+    height: 38px;
+  }
+
+  .brand-info h1 {
+    font-size: 15px;
+  }
+
+  .brand-info p {
+    display: none;
+  }
+
+  .hud-progress-meter {
+    min-width: 110px;
+    max-width: 140px;
+  }
+
+  .hud-actions {
+    gap: 6px;
+  }
+
+  .cyber-btn {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+
+  .minimap-wrapper {
+    position: fixed;
+    bottom: 20px;
+    right: 16px;
+    padding: 6px;
+  }
+
+  #minimap-canvas {
+    width: 95px;
+    height: 95px;
   }
 
   .hud-hints {
     display: none;
   }
 
-  .hud-brand p {
-    display: none;
+  .hud-footer-links {
+    font-size: 11px;
+    padding: 4px 10px;
+  }
+
+  .cyber-modal-window {
+    max-width: 95vw;
+    max-height: 88vh;
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hud-top-bar {
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
 
   .hud-progress-meter {
-    min-width: 130px;
+    order: 3;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 4px;
+  }
+
+  .hud-actions {
+    order: 2;
+  }
+
+  .dpad-btn {
+    width: 44px;
+    height: 44px;
+    font-size: 16px;
+  }
+
+  .dpad-center {
+    width: 38px;
+    height: 38px;
   }
 }
 
