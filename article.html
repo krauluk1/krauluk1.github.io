@@ -42,16 +42,38 @@
   </div>
 
   <script>
+    const ID_ALIASES = {
+      'robocup': 'robocup',
+      'robocup1': 'robocup',
+      'robocupatwork': 'robocup',
+      'robocupatwork1': 'robocup',
+      'robocup-at-work': 'robocup',
+      'oslo': 'oslo',
+      'oslo1': 'oslo',
+      'oslonorwegen': 'oslo',
+      'oslonorwegen1': 'oslo',
+      'oslo-norway': 'oslo',
+      'dancing': 'dancing',
+      'dancing1': 'dancing',
+      'dance': 'dancing',
+      'dancing-wcs': 'dancing',
+      'partner-dancing': 'dancing',
+      'partner-dance': 'dancing'
+    };
+
     async function loadArticle() {
       const container = document.getElementById('article-app');
       try {
         const urlParams = new URLSearchParams(window.location.search);
-        const articleId = urlParams.get('id') || 'robocup';
+        const rawId = (urlParams.get('id') || '').trim().toLowerCase();
+        const articleKey = ID_ALIASES[rawId] || rawId || 'robocup';
 
         const res = await fetch('assets/data/articles.json');
         if (!res.ok) throw new Error('Failed to load articles data');
         const articles = await res.json();
-        const article = articles[articleId] || articles.robocup;
+        
+        const article = articles[articleKey] || articles['dancing'] || articles['robocup'];
+        if (!article) throw new Error(`Article with key "${articleKey}" not found`);
 
         document.title = `${article.title} — Lukas Kraus`;
 
@@ -66,7 +88,7 @@
           </div>
         `;
 
-        // Hero media / YouTube player
+        // Hero media: Video or Image Header
         if (article.youtubeEmbedUrl) {
           html += `
             <div style="margin-bottom: 20px;">
@@ -89,11 +111,17 @@
               </div>
             </div>
           `;
-        } else {
+        } else if (article.heroImage) {
           html += `
-            <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 20px; font-family: var(--font-mono); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
-              <span><i class="far fa-calendar-alt"></i> Author: ${article.author}</span>
-              ${article.achievement ? `<span style="color: var(--pink); font-weight: 600;"><i class="fas fa-trophy"></i> ${article.achievement}</span>` : ''}
+            <div style="margin-bottom: 20px; text-align: center;">
+              <div style="display: inline-block; position: relative;">
+                <img src="${article.heroImage}" alt="${article.title}" style="max-height: 220px; border-radius: 50%; border: 3px solid var(--pink); box-shadow: 0 0 30px rgba(255, 0, 127, 0.35);">
+              </div>
+              <div style="font-size: 12px; color: var(--text-muted); margin-top: 14px; font-family: var(--font-mono); display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+                <span><i class="far fa-calendar-alt"></i> ${article.date || ''}</span>
+                <span><i class="fas fa-user-astronaut"></i> Author: ${article.author}</span>
+                ${article.achievement ? `<span style="color: var(--pink); font-weight: 600;"><i class="fas fa-trophy"></i> ${article.achievement}</span>` : ''}
+              </div>
             </div>
           `;
         }
