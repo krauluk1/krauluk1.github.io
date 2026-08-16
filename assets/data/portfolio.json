@@ -54,7 +54,6 @@
         }
       ],
       "links": [
-        { "label": "Bosch Automated Valet Parking (AVP) Official", "url": "https://www.bosch-mobility.com/en/solutions/parking/automated-valet-parking/" },
         { "label": "EU Project PoDIUM (5G Connected Mobility)", "url": "https://podium-project.eu/" }
       ],
       "tags": ["C++14/17", "ADAS", "Automated Valet Parking", "Docker", "Jenkins", "Python", "5G Cloud", "Conan", "ROS", "CANape"]
@@ -81,7 +80,7 @@
         },
         {
           "title": "RoboCup@Work World Competition — 4th Place (Team SWOT)",
-          "desc": "Competed with Team SWOT as a newcomer university team at RoboCup@Work 2021, achieving an outstanding 4th place worldwide in mobile manipulation."
+          "desc": "Responsible for 3D Vision Object Detection, Gripping Point Detection, and Autonomous Gripping with UR3e collaborative arm."
         },
         {
           "title": "3D Vision & Point Cloud Library (PCL)",
@@ -93,7 +92,7 @@
         }
       ],
       "links": [
-        { "label": "Read RoboCup@Work Article & Video", "url": "article.html?id=robocup" },
+        { "label": "Read RoboCup@Work Article & Video", "url": "article-robocup.html" },
         { "label": "Official RoboCup@Work League", "url": "https://atwork.robocup.org/" }
       ],
       "tags": ["ROS", "PCL", "3D Vision", "Mobile Manipulation", "RoboCup@Work", "C++", "Linux", "Qt"]
@@ -215,8 +214,8 @@
         }
       ],
       "links": [
-        { "label": "Read Partner Dancing & WSDC Competition Article", "url": "article.html?id=dancing" },
-        { "label": "Explore Oslo Travel & Photo Gallery", "url": "article.html?id=oslo" },
+        { "label": "Read Partner Dancing & WSDC Competition Article", "url": "article-dancing.html" },
+        { "label": "Explore Oslo Travel & Photo Gallery", "url": "article-oslo.html" },
         { "label": "Advent of Code Solutions on GitHub", "url": "https://github.com/krauluk1/AoC-2021" }
       ],
       "tags": ["Partner Dance", "West Coast Swing", "WSDC Competitor", "Bouldering", "ISC Volunteering", "Travel Photography", "Advent of Code"]
@@ -231,7 +230,7 @@
     { "id": "sub_iav", "sectorId": "sector1", "x": 700, "y": 880, "label": "IAV ADAS", "category": "Work Experience", "color": "#00e5ff", "desc": "Driving Scenario Visualizer in Python/Qt & CANape/CANoe bus signal processing tools." },
 
     { "id": "sub_meng", "sectorId": "sector2", "x": 2360, "y": 620, "label": "M.Eng. 1.3", "category": "Education", "color": "#a855f7", "desc": "Master of Engineering: Electrical & Information Technology (Specialization in Robotics & 3D Vision, Grade 1.3)." },
-    { "id": "sub_robocup", "sectorId": "sector2", "x": 2640, "y": 610, "label": "RoboCup 4th", "category": "Education", "color": "#a855f7", "desc": "RoboCup@Work 2021: 4th place worldwide with Team SWOT in autonomous mobile manipulation." },
+    { "id": "sub_robocup", "sectorId": "sector2", "x": 2640, "y": 610, "label": "RoboCup 4th", "category": "Education", "color": "#a855f7", "desc": "RoboCup@Work 2021: 4th place worldwide with Team SWOT in 3D Vision (PCL) and robotic manipulation." },
     { "id": "sub_pcl", "sectorId": "sector2", "x": 2380, "y": 790, "label": "PCL 3D Vision", "category": "Education", "color": "#a855f7", "desc": "Point Cloud Library: 3D point cloud segmentation, object pose determination, and spatial reconstruction." },
     { "id": "sub_beng", "sectorId": "sector2", "x": 2620, "y": 800, "label": "B.Eng. 2.1", "category": "Education", "color": "#a855f7", "desc": "Bachelor of Engineering: Electrical Engineering & Automation Technology (Grade 2.1)." },
     { "id": "sub_bthesis", "sectorId": "sector2", "x": 2500, "y": 890, "label": "Bus Signals", "category": "Education", "color": "#a855f7", "desc": "Bachelor Thesis: Interactive software for automotive bus signal display, analysis, and processing." },

@@ -23,10 +23,12 @@ function logFail(msg) {
 
 console.log('--- Starting Website Automated Validation ---\n');
 
-// 1. Check Core Files (Clean Architecture)
+// 1. Check Core Files (Dedicated Standalone Architecture)
 const requiredFiles = [
   'index.html',
-  'article.html',
+  'article-robocup.html',
+  'article-oslo.html',
+  'article-dancing.html',
   'privacy.html',
   'legal-notice.html',
   'assets/data/portfolio.json',
@@ -92,8 +94,8 @@ function checkPrivacy(dir) {
 checkPrivacy(ROOT_DIR);
 logPass('Privacy Compliance Audit completed (Zero private sensitive data detected).');
 
-// 3. Link & Asset Integrity Check in index.html and article.html
-['index.html', 'article.html'].forEach(htmlFile => {
+// 3. Link & Asset Integrity Check in html files
+['index.html', 'article-robocup.html', 'article-oslo.html', 'article-dancing.html'].forEach(htmlFile => {
   const filePath = path.join(ROOT_DIR, htmlFile);
   if (fs.existsSync(filePath)) {
     const htmlContent = fs.readFileSync(filePath, 'utf8');

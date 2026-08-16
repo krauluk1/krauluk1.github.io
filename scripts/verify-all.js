@@ -1,6 +1,6 @@
 /**
  * Comprehensive Verification Script
- * Validates dynamic article rendering, JSON structures, English localization, YouTube embed,
+ * Validates dedicated article pages, JSON structures, English localization, YouTube embed,
  * Oslo Lightbox, Dancing article, WSDC points, and obstacle physics logic.
  */
 const http = require('http');
@@ -59,12 +59,18 @@ async function runTests() {
   assert(portfolio.sectors.sector4.name.includes('Qualifications & Certificates'), 'Sector 4 is Qualifications & Certificates');
   assert(portfolio.sectors.sector5.name.includes('Volunteering & Interests'), 'Sector 5 is Volunteering & Interests');
 
-  // Verify external links in sector1 (Bosch AVP & PoDIUM) and sector5 (Dancing)
+  // Verify Bosch AVP link is REMOVED and PoDIUM is present in sector1
   const sector1Links = JSON.stringify(portfolio.sectors.sector1.links);
-  assert(sector1Links.includes('automated-valet-parking') && sector1Links.includes('podium-project.eu'), 'Sector 1 contains Bosch AVP and PoDIUM official links');
+  assert(!sector1Links.includes('automated-valet-parking'), 'Sector 1 does NOT contain old Bosch AVP link (successfully removed)');
+  assert(sector1Links.includes('podium-project.eu'), 'Sector 1 contains official EU PoDIUM project link');
+
+  // Verify Sector 2 and Sector 5 dedicated links
+  const sector2Links = JSON.stringify(portfolio.sectors.sector2.links);
+  assert(sector2Links.includes('article-robocup.html'), 'Sector 2 contains direct article-robocup.html link');
+
   const sector5Links = JSON.stringify(portfolio.sectors.sector5.links);
-  assert(sector5Links.includes('article.html?id=dancing'), 'Sector 5 contains Partner Dancing article link');
-  assert(sector5Links.includes('article.html?id=oslo'), 'Sector 5 contains Oslo article link');
+  assert(sector5Links.includes('article-dancing.html'), 'Sector 5 contains direct article-dancing.html link');
+  assert(sector5Links.includes('article-oslo.html'), 'Sector 5 contains direct article-oslo.html link');
 
   // 3. Validate articles.json & YouTube URL
   const artRes = await fetchUrl('http://localhost:8000/assets/data/articles.json');
@@ -74,7 +80,7 @@ async function runTests() {
   const osloArt = articlesData.oslo;
   const danceArt = articlesData.dancing;
   assert(robocupArt && robocupArt.youtubeEmbedUrl === 'https://www.youtube.com/embed/N4QOX2h8s7Y', 'RoboCup article contains valid YouTube embed URL');
-  assert(JSON.stringify(robocupArt).includes('3D Vision & Object Recognition') && JSON.stringify(robocupArt).includes('Robotic Arm Manipulation'), 'RoboCup article clearly details Lukas Kraus responsibility for 3D Vision (PCL) and robotic grasping');
+  assert(robocupArt.responsibility.includes('object detection') && robocupArt.responsibility.includes('gripping point detection') && robocupArt.responsibility.includes('autonomous gripping'), 'RoboCup article contains clean concise responsibility statement');
   assert(osloArt && osloArt.gallery.length === 4, 'Oslo article contains 4 gallery items');
   assert(danceArt && danceArt.wsdcProfile.wsdcId === '28427', 'Dancing article contains WSDC ID 28427');
 
@@ -85,11 +91,15 @@ async function runTests() {
   assert(legal.privacy.title === 'Privacy Policy', 'legal.json contains Privacy Policy');
   assert(legal.legalNotice.title.includes('Legal Notice'), 'legal.json contains Legal Notice');
 
-  // 5. Validate Universal Dynamic article.html template
-  const articleRes = await fetchUrl('http://localhost:8000/article.html');
-  assert(articleRes.statusCode === 200, 'GET /article.html returns HTTP 200 OK');
-  assert(articleRes.body.includes('loadArticle') && articleRes.body.includes('assets/data/articles.json'), 'article.html dynamically fetches and renders articles.json');
-  assert(articleRes.body.includes('cyber-lightbox'), 'article.html includes interactive photo lightbox');
+  // 5. Validate Dedicated Standalone Article Pages
+  const robocupRes = await fetchUrl('http://localhost:8000/article-robocup.html');
+  assert(robocupRes.statusCode === 200 && robocupRes.body.includes('object detection') && robocupRes.body.includes('roboCupVideo'), 'article-robocup.html returns HTTP 200 with video player and responsibility note');
+
+  const osloRes = await fetchUrl('http://localhost:8000/article-oslo.html');
+  assert(osloRes.statusCode === 200 && osloRes.body.includes('cyber-lightbox') && osloRes.body.includes('Norsk Folkemuseum'), 'article-oslo.html returns HTTP 200 with Oslo Photo Gallery and Lightbox');
+
+  const danceRes = await fetchUrl('http://localhost:8000/article-dancing.html');
+  assert(danceRes.statusCode === 200 && danceRes.body.includes('28427') && danceRes.body.includes('West Coast Swing'), 'article-dancing.html returns HTTP 200 with WSDC credentials');
 
   // 6. Validate Privacy & Legal pages
   const privRes = await fetchUrl('http://localhost:8000/privacy.html');

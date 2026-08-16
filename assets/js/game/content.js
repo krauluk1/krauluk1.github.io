@@ -57,7 +57,6 @@ export const PORTFOLIO_CONTENT = {
         }
       ],
       links: [
-        { label: "Bosch Automated Valet Parking (AVP) Official", url: "https://www.bosch-mobility.com/en/solutions/parking/automated-valet-parking/" },
         { label: "EU Project PoDIUM (5G Connected Mobility)", url: "https://podium-project.eu/" }
       ],
       tags: ["C++14/17", "ADAS", "Automated Valet Parking", "Docker", "Jenkins", "Python", "5G Cloud", "Conan", "ROS", "CANape"]
@@ -82,7 +81,7 @@ export const PORTFOLIO_CONTENT = {
         },
         {
           title: "RoboCup@Work World Competition — 4th Place (Team SWOT)",
-          desc: "Responsible for 3D Vision & Object Recognition (PCL) and 6-DoF Robotic Grasping (UR3e Arm). Achieved 4th place worldwide in mobile manipulation."
+          desc: "Responsible for 3D Vision Object Detection, Gripping Point Detection, and Autonomous Gripping with UR3e collaborative arm."
         },
         {
           title: "3D Vision & Point Cloud Library (PCL)",
@@ -94,7 +93,7 @@ export const PORTFOLIO_CONTENT = {
         }
       ],
       links: [
-        { label: "Read RoboCup@Work Article & Video", url: "article.html?id=robocup" },
+        { label: "Read RoboCup@Work Article & Video", url: "article-robocup.html" },
         { label: "Official RoboCup@Work League", url: "https://atwork.robocup.org/" }
       ],
       tags: ["ROS", "PCL", "3D Vision", "Mobile Manipulation", "RoboCup@Work", "C++", "Linux", "Qt"]
@@ -210,8 +209,8 @@ export const PORTFOLIO_CONTENT = {
         }
       ],
       links: [
-        { label: "Read Partner Dancing & WSDC Competition Article", url: "article.html?id=dancing" },
-        { label: "Explore Oslo Travel & Photo Gallery", url: "article.html?id=oslo" },
+        { label: "Read Partner Dancing & WSDC Competition Article", url: "article-dancing.html" },
+        { label: "Explore Oslo Travel & Photo Gallery", url: "article-oslo.html" },
         { label: "Advent of Code Solutions on GitHub", url: "https://github.com/krauluk1/AoC-2021" }
       ],
       tags: ["Partner Dance", "West Coast Swing", "WSDC Competitor", "Bouldering", "ISC Volunteering", "Travel Photography", "Advent of Code"]
