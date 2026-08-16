@@ -4,15 +4,15 @@
  * Includes procedural vector rendering, physics, particle trails, and active LIDAR scanning.
  */
 export class Rover {
-  constructor(x, y, particleSystem, soundSynthesizer, eventBus) {
+  constructor(x = 1600, y = 1600, particleSystem, soundSynthesizer, eventBus) {
     this.x = x;
     this.y = y;
     this.vx = 0;
     this.vy = 0;
     this.angle = -Math.PI / 2; // Facing upwards by default
     this.speed = 0;
-    this.maxSpeed = 5.0;
-    this.acceleration = 0.22;
+    this.maxSpeed = 5.2;
+    this.acceleration = 0.24;
     this.friction = 0.92;
     this.turnSpeed = 0.07;
     this.radius = 22;
@@ -25,10 +25,13 @@ export class Rover {
     this.targetWaypoint = null;
     this.isAutoNavigating = false;
 
+    // Obstacle bump cooldown
+    this.lastBumpTime = 0;
+
     // LIDAR properties
     this.lidarAngle = 0;
     this.lidarSweepSpeed = 0.06;
-    this.lidarRadius = 140;
+    this.lidarRadius = 150;
     this.lidarPulse = 0;
 
     // Input state
@@ -62,7 +65,7 @@ export class Rover {
       const dy = this.targetWaypoint.y - this.y;
       const dist = Math.hypot(dx, dy);
 
-      if (dist < 15) {
+      if (dist < 18) {
         this.clearWaypoint();
       } else {
         const desiredAngle = Math.atan2(dy, dx);
@@ -103,22 +106,51 @@ export class Rover {
 
     if (Math.abs(this.speed) < 0.01) this.speed = 0;
 
-    // Update velocity & position
+    // Update velocity & test candidate position
     this.vx = Math.cos(this.angle) * this.speed;
     this.vy = Math.sin(this.angle) * this.speed;
 
-    const nextX = this.x + this.vx * dt * 60;
-    const nextY = this.y + this.vy * dt * 60;
+    let nextX = this.x + this.vx * dt * 60;
+    let nextY = this.y + this.vy * dt * 60;
 
-    // Check world boundaries & collision
+    // Check world boundaries
     if (world) {
       const bounded = world.clampToBounds(nextX, nextY, this.radius);
-      this.x = bounded.x;
-      this.y = bounded.y;
-    } else {
-      this.x = nextX;
-      this.y = nextY;
+      nextX = bounded.x;
+      nextY = bounded.y;
+
+      // Check obstacle (crater) collisions
+      const collision = world.checkObstacleCollision(nextX, nextY, this.radius);
+      if (collision.collided) {
+        // Push out of obstacle
+        nextX += collision.normalX * (collision.overlap + 0.5);
+        nextY += collision.normalY * (collision.overlap + 0.5);
+
+        // Slide along obstacle boundary: project velocity onto tangent
+        const tangentX = -collision.normalY;
+        const tangentY = collision.normalX;
+        const dot = this.vx * tangentX + this.vy * tangentY;
+        
+        this.vx = tangentX * dot * 0.85;
+        this.vy = tangentY * dot * 0.85;
+        this.speed *= 0.6;
+
+        // Spark / dust particles at contact point
+        const contactX = collision.obstacle.x + (collision.obstacle.radius * (nextX - collision.obstacle.x) / collision.dist);
+        const contactY = collision.obstacle.y + (collision.obstacle.radius * (nextY - collision.obstacle.y) / collision.dist);
+        this.particles.emitExplosion(contactX, contactY, '#38bdf8', 4);
+
+        // Audio bump effect with throttle
+        const now = Date.now();
+        if (now - this.lastBumpTime > 250) {
+          this.sound.playBump();
+          this.lastBumpTime = now;
+        }
+      }
     }
+
+    this.x = nextX;
+    this.y = nextY;
 
     // Wheel rotation and particle exhaust
     if (Math.abs(this.speed) > 0.1) {
@@ -161,7 +193,7 @@ export class Rover {
     // LIDAR perimeter rings
     ctx.beginPath();
     ctx.arc(0, 0, this.lidarRadius, 0, Math.PI * 2);
-    ctx.strokeStyle = 'rgba(0, 229, 255, 0.12)';
+    ctx.strokeStyle = 'rgba(0, 229, 255, 0.14)';
     ctx.lineWidth = 1;
     ctx.stroke();
 
@@ -169,7 +201,7 @@ export class Rover {
     const pulseRad = this.lidarRadius * this.lidarPulse;
     ctx.beginPath();
     ctx.arc(0, 0, pulseRad, 0, Math.PI * 2);
-    ctx.strokeStyle = `rgba(0, 229, 255, ${0.2 * (1 - this.lidarPulse)})`;
+    ctx.strokeStyle = `rgba(0, 229, 255, ${0.25 * (1 - this.lidarPulse)})`;
     ctx.lineWidth = 1.5;
     ctx.stroke();
 
@@ -188,7 +220,7 @@ export class Rover {
     ctx.fill();
 
     // Beam leading line
-    ctx.strokeStyle = 'rgba(0, 229, 255, 0.6)';
+    ctx.strokeStyle = 'rgba(0, 229, 255, 0.65)';
     ctx.lineWidth = 1.5;
     ctx.beginPath();
     ctx.moveTo(0, 0);
@@ -201,7 +233,7 @@ export class Rover {
   renderHeadlights(ctx) {
     ctx.save();
     // Dual front beam lights
-    const lightGradient = ctx.createRadialGradient(20, 0, 5, 80, 0, 110);
+    const lightGradient = ctx.createRadialGradient(20, 0, 5, 85, 0, 120);
     lightGradient.addColorStop(0, 'rgba(255, 255, 255, 0.45)');
     lightGradient.addColorStop(0.3, 'rgba(0, 229, 255, 0.25)');
     lightGradient.addColorStop(1, 'rgba(0, 229, 255, 0)');

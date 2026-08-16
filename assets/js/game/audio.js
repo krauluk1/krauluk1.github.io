@@ -178,6 +178,30 @@ export class SoundSynthesizer {
     osc.start();
     osc.stop(this.ctx.currentTime + 0.04);
   }
+
+  /**
+   * Rover obstacle impact thud / rumble
+   */
+  playBump() {
+    if (this.muted || !this.ctx) return;
+    this.resume();
+    const now = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(110, now);
+    osc.frequency.exponentialRampToValueAtTime(35, now + 0.12);
+
+    gain.gain.setValueAtTime(0.12, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+
+    osc.start(now);
+    osc.stop(now + 0.12);
+  }
 }
 
 export const soundSynthesizer = new SoundSynthesizer();

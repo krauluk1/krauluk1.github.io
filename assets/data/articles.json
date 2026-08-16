@@ -1,0 +1,79 @@
+{
+  "robocup": {
+    "id": "robocup",
+    "title": "Mobile Manipulation at RoboCup@Work 2021",
+    "subtitle": "Autonomous Mobile Robotics, 3D Perception with PCL & Cartesian Control in ROS",
+    "category": "Sector 02 • Robotics & 3D Vision Lab",
+    "date": "October 24, 2021",
+    "author": "Lukas Kraus",
+    "team": "Team SWOT (FHWS)",
+    "achievement": "4th Place Worldwide",
+    "heroImage": "../assets/media/roboCupAtWork1/RoboCup@Work_theRobot1.png",
+    "youtubeEmbedUrl": "https://www.youtube.com/embed/N4QOX2h8s7Y",
+    "abstract": "An overview of autonomous mobile manipulation developed for the international RoboCup@Work 2021 competition. As the founding newcomer team SWOT of FHWS, we engineered an integrated ROS robotic system combining LiDAR SLAM navigation, 3D Point Cloud Library (PCL) object segmentation, and cartesian trajectory planning, securing 4th place worldwide.",
+    "sections": [
+      {
+        "heading": "About the RoboCup@Work League",
+        "content": "The RoboCup@Work league is an established international scientific competition targeting innovative mobile manipulation solutions for industry 4.0 applications. Mobile robots must autonomously traverse dynamic environments, accurately locate and grasp industrial workpieces, avoid static and moving obstacles, and place components into precision fixtures."
+      },
+      {
+        "heading": "The Challenge: Basic Manipulation Test (BMT)",
+        "content": "In RoboCup@Work, robots face rigorous benchmark tests ranging from logistics transportation to high-precision assembly. As a newly founded team, our first milestone was conquering the Basic Manipulation Test (BMT). The BMT evaluates core autonomous capabilities: navigation, object perception, 6-DoF grasp planning, and object rotation on diverse surfaces (wood, acrylic glass, turntables, shelving units, and decoy clutter).",
+        "hasVideo": true
+      },
+      {
+        "heading": "Hardware Architecture: Omnidirectional Platform & 6-DoF Arm",
+        "content": "The robotic platform was built on an industrial-grade mobile base by Evocortex GmbH equipped with Mecanum wheels for omnidirectional agility in narrow spaces. Two Sick TiM561 LiDAR scanners provide 360-degree environmental perception. Mounted on the base is a Universal Robots UR3e 6-DoF collaborative arm paired with a Robotiq Hand-E gripper and an Intel RealSense D435i depth camera. Computing power is distributed across an Intel UP Xtreme board, an NVIDIA Jetson TX2, and a Lenovo ThinkPad host."
+      },
+      {
+        "heading": "Software Architecture: ROS Melodic Pipeline",
+        "content": "The software stack operates on Ubuntu Linux with ROS Melodic, structured into four decoupled subsystems:",
+        "list": [
+          "Task Planner & Executive: Parses referee box commands, evaluates dynamic mission schedules, and coordinates state machines.",
+          "Autonomous Navigation: Adaptive Monte-Carlo Localization (AMCL) combined with the Timed Elastic Band (TEB) local planner for collision-free trajectory generation.",
+          "3D Perception & Pose Estimation: Point Cloud Library (PCL) pipelines perform planar segmentation, cluster extraction, and 3D surface model alignment to compute precise 6-DoF grasp poses.",
+          "Cartesian Manipulation: Integrated cartesian_ros_control package executes compliant trajectory interpolation and reactive collision aborts."
+        ]
+      },
+      {
+        "heading": "Competition Results & Master's Thesis",
+        "content": "Competing against seasoned international university teams, Team SWOT captured 4th place worldwide at RoboCup@Work 2021. The modular perception and trajectory algorithms developed here also formed the foundation for my Master of Engineering thesis at FHWS, which was graded with highest honors (1.3)."
+      }
+    ],
+    "tags": ["ROS", "PCL", "3D Computer Vision", "Mobile Manipulation", "RoboCup@Work", "UR3e", "C++", "Linux"]
+  },
+  "oslo": {
+    "id": "oslo",
+    "title": "Oslo Travel & Cultural Photo Log",
+    "subtitle": "Nordic Architecture, Fjord Landscapes, Maritime Heritage & Rooftop Salsa",
+    "category": "Sector 05 • Off-Duty Basecamp & Passions",
+    "date": "November 4, 2021",
+    "author": "Lukas Kraus",
+    "location": "Oslo, Norway",
+    "heroImage": "../assets/media/osloNorwegen1/VigelandSkulpturen5.png",
+    "abstract": "A photographic exploration of the Norwegian capital Oslo, capturing its striking contemporary architecture, rich maritime history, expansive fjord panoramas, and vibrant outdoor social culture.",
+    "gallery": [
+      {
+        "title": "Vigeland Sculpture Park (Vigelandsanlegget)",
+        "image": "../assets/media/osloNorwegen1/vigelandSkulpturen.PNG",
+        "desc": "Over 200 granite and bronze sculptures depicting the entire human lifecycle by Gustav Vigeland in Frogner Park."
+      },
+      {
+        "title": "Oslo Opera House & Fjord Walk",
+        "image": "../assets/media/osloNorwegen1/fjordOper.PNG",
+        "desc": "The iconic white Italian marble roof sloping directly into the Oslofjord, featuring open-air social salsa and bachata dancing against the sunset."
+      },
+      {
+        "title": "Fram Polar Exploration Museum",
+        "image": "../assets/media/osloNorwegen1/framMuseum.PNG",
+        "desc": "Preserving the legendary polar vessel Fram, which journeyed furthest north and south under Nansen and Amundsen."
+      },
+      {
+        "title": "Norsk Folkemuseum (Bygdøy Peninsula)",
+        "image": "../assets/media/osloNorwegen1/freilichtMuseum.PNG",
+        "desc": "Open-air museum showcasing traditional stave church architecture and timber buildings spanning the Middle Ages to modern Norway."
+      }
+    ],
+    "tags": ["Travel Photography", "Oslo", "Norway", "Fjord", "Architecture", "Salsa", "Culture"]
+  }
+}

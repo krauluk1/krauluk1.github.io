@@ -2,7 +2,7 @@
  * StorageService - Game Progression & Settings Persistence
  * Implements Service / Repository Pattern
  */
-const STORAGE_KEY = 'krauluk1_odyssey_save_v1';
+const STORAGE_KEY = 'krauluk1_odyssey_save_v2_1';
 
 export class StorageService {
   constructor() {
@@ -16,13 +16,19 @@ export class StorageService {
     try {
       const data = localStorage.getItem(STORAGE_KEY);
       if (data) {
-        return JSON.parse(data);
+        const parsed = JSON.parse(data);
+        return {
+          unlockedSectors: Array.isArray(parsed.unlockedSectors) ? parsed.unlockedSectors.filter(s => s && s.startsWith('sector')) : [],
+          collectedItems: Array.isArray(parsed.collectedItems) ? parsed.collectedItems : [],
+          fastPassUsed: !!parsed.fastPassUsed,
+          soundMuted: !!parsed.soundMuted
+        };
       }
     } catch (e) {
       console.warn('LocalStorage unavailable, using in-memory state:', e);
     }
     return {
-      unlockedSectors: ['spawn'],
+      unlockedSectors: [],
       collectedItems: [],
       fastPassUsed: false,
       soundMuted: false

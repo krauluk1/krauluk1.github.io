@@ -106,6 +106,17 @@ export class ParticleSystem {
     });
   }
 
+  emitVictoryCelebration(centerX, centerY) {
+    const colors = ['#00e5ff', '#00ff88', '#a855f7', '#ff007f', '#f59e0b', '#ffffff'];
+    for (let b = 0; b < 6; b++) {
+      const offsetX = (Math.random() - 0.5) * 400;
+      const offsetY = (Math.random() - 0.5) * 300;
+      const color = colors[b % colors.length];
+      this.emitExplosion(centerX + offsetX, centerY + offsetY, color, 30);
+      this.emitShockwave(centerX + offsetX, centerY + offsetY, color, 80);
+    }
+  }
+
   update(dt) {
     this.particles = this.particles.filter(p => p.update(dt));
   }

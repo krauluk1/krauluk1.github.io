@@ -1,170 +1,249 @@
 /**
  * PortfolioContent - Verified Privacy-Safe Resume & Project Data Store
- * All information is structured for progressive game unlock.
- * Strictly free of private personal data (no phone, no home address, no private email, no birth date).
+ * Structured for progressive gamified unlock across 5 main CV sectors.
+ * Strictly free of private personal data (no private phone, home address, or birth date).
  */
 export const PORTFOLIO_CONTENT = {
   header: {
     name: "Lukas Kraus",
     tagline: "Software Engineer — Autonomous Systems, ADAS & Robotics",
-    status: "Active Developer @ Robert Bosch GmbH",
-    badge: "M.Eng. Robotics & 3D Vision (1.3)"
+    status: "Software Engineer @ Robert Bosch GmbH",
+    badge: "M.Eng. Robotics & 3D Vision (Grade: 1.3)",
+    location: "Stuttgart / Schweinfurt, Germany",
+    summary: "Specialized in Autonomous Driving (ADAS), Parking Space Detection (PSD), Automated Valet Parking (AVP), Point Cloud 3D Vision, and CI/CD Automation."
   },
 
   sectors: {
     sector1: {
       id: "sector1",
-      name: "Sector 01: ADAS & Autonomous Parking",
+      name: "Sector 01: Work Experience",
       category: "Professional Experience",
-      shortTitle: "Robert Bosch GmbH",
-      timeframe: "Since 03.2022",
+      shortTitle: "Automotive & Robotics Proving Ground",
+      timeframe: "Since 2019 — Present",
       role: "Software Engineer (Embedded / Automotive)",
-      company: "Robert Bosch GmbH",
-      location: "Automotive Technology Campus",
+      company: "Robert Bosch GmbH / FHWS / IAV",
+      location: "Stuttgart & Weissach, Germany",
       icon: "car-autonomous",
       color: "#00e5ff",
-      summary: "Agile engineering, validation, and debugging for cutting-edge autonomous driving and automated parking functions (ADAS).",
+      summary: "Agile engineering, validation, and debugging for cutting-edge autonomous driving, automated parking functions (ADAS), and mobile robotics.",
       highlights: [
         {
-          title: "Parking Space Detection (PSD) & AI Algorithms",
-          desc: "AI-assisted C++ software development for real-time parking space detection, Parkout (POP), Anywhere Parking Trailer (APT), and Garage Park Assist (GPA) with custom debug visualizers."
+          title: "Parking Space Detection (PSD) & AI Algorithms (Bosch)",
+          desc: "AI-assisted C++ software development for real-time parking space detection including Parkout (POP), Anywhere Parking Trailer (APT), and Garage Park Assist (GPA) with custom debug visualizations."
         },
         {
-          title: "Intelligent & Remote Park Assist (IPA / RPA)",
-          desc: "System maintenance, change-request implementation, and resolving complex software bugs for intelligent driver-assistance systems."
+          title: "Intelligent & Remote Park Assist (IPA / RPA - Bosch)",
+          desc: "Sustainable bug fixing, technical requirement definition, and change request implementation for production-grade driver assistance systems."
         },
         {
-          title: "Platform Communication & Base Software (FD3)",
-          desc: "Architected and implemented inter-component communication interfaces (COM, DIAG, FM, PDM) on the next-gen FD3 platform."
+          title: "Platform Basic SW & Vehicle Interfaces (FD3 - Bosch)",
+          desc: "Architected and implemented vehicle-internal inter-component communication interfaces (COM, DIAG, FM, PDM) on the next-generation FD3 platform."
         },
         {
-          title: "PoDIUM 5G Cloud & Infrastructure Streaming",
-          desc: "Implemented real-time 5G sensor data streaming to cloud backends and secured smart parking garage server communications."
+          title: "PoDIUM 5G Cloud & Infrastructure Streaming (Bosch)",
+          desc: "Implemented 5G high-throughput sensor streaming from vehicles to the cloud and hardened parking garage server communication interfaces."
         },
         {
-          title: "CI/CD & DevOps Automation (AVP)",
-          desc: "Automated Jenkins pipelines for Automated Valet Parking using Docker containers, Conan package management, and Python static analysis."
+          title: "CI/CD & DevOps Automation (AVP - Bosch)",
+          desc: "Setup and automated robust Jenkins pipelines for static code analysis, unit testing, and Docker containerization with Conan package management and Python in Automated Valet Parking."
+        },
+        {
+          title: "Robotics Demonstrator Environments (FHWS)",
+          desc: "Built and extended testing environments for autonomous mobile robots with ROS, C++, and Python on Linux; supervised automation labs."
+        },
+        {
+          title: "Driving Scenario Visualizer & Bus Data Tools (IAV GmbH)",
+          desc: "Developed graphical driving scenario simulation tools with Python/Qt and vehicle bus signal processing tools with SQL, CANape, and CANoe."
         }
       ],
-      tags: ["C++14/17", "ADAS", "Automated Valet Parking", "Docker", "Jenkins", "Python", "5G Cloud", "Conan"]
+      tags: ["C++14/17", "ADAS", "Automated Valet Parking", "Docker", "Jenkins", "Python", "5G Cloud", "Conan", "ROS", "CANape"]
     },
 
     sector2: {
       id: "sector2",
-      name: "Sector 02: Robotics & 3D Vision Lab",
+      name: "Sector 02: Academic Education",
       category: "Academics & Research",
-      shortTitle: "Robotics & RoboCup@Work",
-      timeframe: "2020 — 2022",
-      role: "Master of Engineering (Grade 1.3)",
-      company: "FHWS (Hochschule Würzburg-Schweinfurt)",
-      location: "Robotics Research Institute",
+      shortTitle: "FHWS Robotics & 3D Vision Lab",
+      timeframe: "2016 — 2022",
+      role: "M.Eng. (Grade 1.3) & B.Eng. (Grade 2.1)",
+      company: "FHWS (University of Applied Sciences Würzburg-Schweinfurt)",
+      location: "Schweinfurt, Germany",
       icon: "robot-arm",
       color: "#a855f7",
-      summary: "Master of Engineering in Electrical & Information Engineering with specialization in Robotics & 3D Computer Vision.",
+      summary: "Master of Engineering in Electrical Engineering & Information Technology (Specialization: Robotics & 3D Vision) and Bachelor of Engineering (Specialization: Automation Technology).",
       highlights: [
         {
-          title: "RoboCup@Work World Competition (4th Place)",
-          desc: "Competed with Team SWOT as a newcomer team at RoboCup@Work 2021, achieving an outstanding 4th place worldwide with mobile manipulators."
+          title: "Master of Engineering (Grade: 1.3 - ECTS A)",
+          desc: "Specialization in Robotics & 3D Computer Vision at FHWS. Master thesis: Handling of components with a mobile robot in the context of the international RoboCup@Work competition."
         },
         {
-          title: "Master Thesis: Mobile Manipulation",
-          desc: "Autonomous workpiece handling and manipulation using a mobile robot platform, ROS, and 3D computer vision."
+          title: "RoboCup@Work World Competition — 4th Place (Team SWOT)",
+          desc: "Competed with Team SWOT as a newcomer university team at RoboCup@Work 2021, achieving an outstanding 4th place worldwide in mobile manipulation."
         },
         {
-          title: "Point Cloud Library (PCL) & 3D Vision",
-          desc: "Developed 3D point-cloud processing pipelines, feature extraction, and robot vision algorithms in C++ and Linux."
+          title: "3D Vision & Point Cloud Library (PCL)",
+          desc: "Developed 3D point cloud segmentation, object pose estimation, and obstacle avoidance pipelines using ROS and C++ on Linux."
         },
         {
-          title: "Demonstrator Testbeds & Lab Mentorship",
-          desc: "Constructed hardware-in-the-loop testbeds with ROS/Linux and supervised laboratory student practicals in automation."
+          title: "Bachelor of Engineering (Grade: 2.1)",
+          desc: "Specialization in Automation Technology. Bachelor thesis: Development of a graphical program for the display, analysis, and signal processing of automotive bus signals with an intuitive UI."
         }
       ],
       links: [
-        { label: "Read RoboCup@Work Article", url: "blog-details/roboCupAtWork1.html" }
+        { label: "Read RoboCup@Work Article & Video", url: "blog-details/roboCupAtWork1.html" }
       ],
       tags: ["ROS", "PCL", "3D Vision", "Mobile Manipulation", "RoboCup@Work", "C++", "Linux", "Qt"]
     },
 
     sector3: {
       id: "sector3",
-      name: "Sector 03: Tech Matrix & Power Core",
-      category: "Skills & Certifications",
-      shortTitle: "Technical Skill Arsenal",
+      name: "Sector 03: IT & Technical Skills",
+      category: "Skills & Technologies",
+      shortTitle: "Technical Power Matrix",
       timeframe: "Continuous Mastery",
-      role: "Core Competencies & Verified Credentials",
-      company: "Certified Expertise",
-      location: "Engineering Stack",
+      role: "Core Stack & Engineering Toolchain",
+      company: "Engineering Architecture",
+      location: "Embedded & Cloud Stack",
       icon: "cpu-chip",
       color: "#00ff88",
-      summary: "Comprehensive technical capabilities spanning low-level embedded algorithms to scalable CI/CD pipelines and agile methodologies.",
+      summary: "Full-spectrum software engineering competencies spanning embedded real-time algorithms, 3D perception, scalable CI/CD pipelines, and modern agile workflows.",
       skills: [
-        { group: "Programming Languages", items: ["C++14/17 (Advanced)", "Python (Advanced)", "Bash", "SQL", "JavaScript", "HTML/CSS"] },
-        { group: "Frameworks & Toolchains", items: ["ROS", "PCL", "Docker", "Jenkins", "Conan", "Git", "Qt", "CANape", "CANoe", "Matlab/Simulink"] },
-        { group: "Operating Systems", items: ["Linux / Ubuntu (Advanced)", "Windows", "ROS Embedded Nodes"] },
-        { group: "Methodologies", items: ["CI/CD Pipeline Architecture", "Agile (Scrum / Kanban)", "Clean Code", "Defensive Programming"] }
-      ],
-      certifications: [
         {
-          title: "Professional Scrum Master (PSM I) & Scrum Developer (PSD I)",
-          issuer: "Scrum.org",
-          desc: "Certified knowledge in agile software development, sprint dynamics, and Scrum leadership."
+          group: "Programming Languages",
+          items: ["C++14/17 (Advanced)", "Python (Advanced)", "Bash Scripting", "SQL", "JavaScript (ES6+)", "HTML5 / CSS3", "VBA"]
         },
         {
-          title: "Ausbildereignung (AdA-Schein nach AEVO)",
-          issuer: "IHK Würzburg-Schweinfurt",
-          desc: "Certified pedagogical qualification for training and mentoring new engineering talents."
+          group: "Tools & Frameworks",
+          items: ["ROS (Robot Operating System)", "PCL (Point Cloud Library)", "Docker", "Jenkins", "Conan", "Git", "Qt", "CANape", "CANoe", "Matlab/Simulink"]
         },
         {
-          title: "Deep Learning with TensorFlow Workshop",
-          issuer: "FH Würzburg-Schweinfurt",
-          desc: "Neural network architectures, deep computer vision, and machine learning models."
+          group: "Operating Systems & Platforms",
+          items: ["Linux / Ubuntu (Advanced)", "Windows (Confident)", "Embedded Real-Time ROS Nodes", "Docker Containers"]
         },
         {
-          title: "SQL for Data Science",
-          issuer: "UC Davis",
-          desc: "Database querying, structured data analysis, and relational data structures."
+          group: "Methodologies & Architecture",
+          items: ["CI/CD Pipeline Design", "Agile (Scrum / Kanban)", "Clean Code", "Test Automation", "Defensive Programming", "Automotive SPICE"]
         }
       ],
-      tags: ["Scrum Master", "Scrum Developer", "AEVO AdA", "Deep Learning", "CI/CD Architect"]
+      tags: ["C++17", "Python", "ROS", "PCL", "Docker", "Jenkins", "Linux", "CI/CD", "CANape"]
     },
 
     sector4: {
       id: "sector4",
-      name: "Sector 04: Off-Duty Basecamp",
-      category: "Lifestyle & Passions",
-      shortTitle: "Bouldering, Dance & Adventures",
-      timeframe: "Passions & Beyond",
-      role: "Problem Solver on & off the Wall",
-      company: "Life & Community",
+      name: "Sector 04: Qualifications & Certificates",
+      category: "Certifications & Credentials",
+      shortTitle: "Credentials & Certifications Vault",
+      timeframe: "Verified Qualifications",
+      role: "Certified Scrum Master, Developer & Instructor",
+      company: "Scrum.org / IHK / UC Davis",
+      location: "International Standards",
+      icon: "certificate-shield",
+      color: "#f59e0b",
+      summary: "Internationally accredited credentials in agile project management, software development, pedagogy, deep learning, and data science.",
+      certifications: [
+        {
+          title: "Professional Scrum Developer I (PSD I) & Scrum Master I (PSM I)",
+          issuer: "Scrum.org",
+          desc: "Certified knowledge and hands-on application of Scrum principles, sprint dynamics, and agile project delivery in software engineering."
+        },
+        {
+          title: "Instructor Aptitude Certification (AEVO / AdA-Schein)",
+          issuer: "IHK Würzburg-Schweinfurt",
+          desc: "Official proof of vocational and occupational pedagogical qualifications for training and mentoring junior engineering professionals."
+        },
+        {
+          title: "Deep Learning with TensorFlow Workshop",
+          issuer: "FH Würzburg-Schweinfurt",
+          desc: "Advanced training in Artificial Intelligence, Neural Networks, Machine Learning, and Computer Vision using TensorFlow."
+        },
+        {
+          title: "SQL for Data Science Certification",
+          issuer: "University of California, Davis (UC Davis)",
+          desc: "Specialized coursework in relational database querying, filtering, aggregation, and data analysis pipelines."
+        },
+        {
+          title: "Mobility & Driving",
+          issuer: "German Federal Driving License Authority",
+          desc: "Driver's license class B (Automotive passenger vehicles)."
+        }
+      ],
+      tags: ["Scrum Master", "Scrum Developer", "AEVO AdA", "Deep Learning", "SQL", "Driver Class B"]
+    },
+
+    sector5: {
+      id: "sector5",
+      name: "Sector 05: Volunteering & Interests",
+      category: "Lifestyle & Community",
+      shortTitle: "Off-Duty Basecamp & Passions",
+      timeframe: "Community & Beyond",
+      role: "Community Member & Physical Problem Solver",
+      company: "Life, Sports & Culture",
       location: "Worldwide",
       icon: "compass-spark",
       color: "#ff007f",
-      summary: "Balancing intense engineering with physical agility, musical rhythm, world travel, and coding challenges.",
+      summary: "Balancing complex algorithmic engineering with intercultural student mentoring, bouldering problem-solving, partner dancing, and travel photography.",
       highlights: [
         {
+          title: "International Students Club (FHWS ISC)",
+          desc: "Active member organizing intercultural events, integration assistance, and social activities for international students in Schweinfurt."
+        },
+        {
           title: "🧗 Bouldering & Athletic Agility",
-          desc: "Tackling complex boulder routes—where physical movement meets algorithmic problem-solving and spatial awareness."
+          desc: "Tackling intricate boulder routes where physical movement, spatial awareness, and algorithmic problem-solving intersect."
         },
         {
-          title: "💃 Partner Dancing (Standard & Latin)",
-          desc: "Passionate about partner dances: Salsa, Bachata, West Coast Swing, Kizomba, Discofox, and ballroom standard."
+          title: "💃 Partner Dancing (Standard & Latin, Social)",
+          desc: "Passionate partner dancer: Standard & Latin ballroom, Salsa, Bachata, West Coast Swing, and Kizomba."
         },
         {
-          title: "🌍 Travel Explorations & Photo Logs",
-          desc: "Exploring new cultures, landscapes, and architectures—from the vibrant fjords and museums of Oslo to international student integrations."
+          title: "🌍 Travel & Photo Expeditions",
+          desc: "Exploring world destinations and capturing scenic landscapes, including the Nordic fjords, architecture, and museums of Oslo."
         },
         {
-          title: "🧩 Advent of Code & Fun Coding Puzzles",
-          desc: "Solving festive algorithmic puzzles and experimenting with creative web programming."
+          title: "🧩 Advent of Code & Algorithmic Puzzles",
+          desc: "Solving yearly festive programming puzzles to explore new paradigms and keep algorithmic thinking sharp."
         }
       ],
       links: [
-        { label: "Explore Oslo Travel Gallery", url: "blog-details/osloNorwegen1.html" },
-        { label: "View Advent of Code Solutions", url: "https://github.com/krauluk1/AoC-2021" }
+        { label: "Explore Oslo Travel & Photo Gallery", url: "blog-details/osloNorwegen1.html" },
+        { label: "Advent of Code Solutions on GitHub", url: "https://github.com/krauluk1/AoC-2021" }
       ],
-      tags: ["Bouldering", "Salsa & Bachata", "West Coast Swing", "Advent of Code", "Traveler"]
+      tags: ["ISC Volunteering", "Bouldering", "Partner Dance", "Travel Photography", "Advent of Code"]
     }
   },
+
+  subItems: [
+    { id: "sub_psd", sectorId: "sector1", x: 560, y: 620, label: "PSD Algorithm", category: "Work Experience", color: "#00e5ff", desc: "Parking Space Detection: AI-assisted C++ algorithms for Parkout (POP), Anywhere Parking Trailer (APT), and GPA." },
+    { id: "sub_ipa", sectorId: "sector1", x: 840, y: 600, label: "IPA / RPA", category: "Work Experience", color: "#00e5ff", desc: "Intelligent & Remote Park Assist: System maintenance, bug-fixing, and technical requirement specifications." },
+    { id: "sub_fd3", sectorId: "sector1", x: 580, y: 800, label: "FD3 Platform", category: "Work Experience", color: "#00e5ff", desc: "Base SW Interfaces: Inter-component communication (COM, DIAG, FM, PDM) on the next-gen FD3 platform." },
+    { id: "sub_podium", sectorId: "sector1", x: 820, y: 790, label: "5G PoDIUM", category: "Work Experience", color: "#00e5ff", desc: "5G Sensor Streaming: High-speed cloud data streaming and parking garage server security hardening." },
+    { id: "sub_avp", sectorId: "sector1", x: 700, y: 550, label: "AVP CI/CD", category: "Work Experience", color: "#00e5ff", desc: "Automated Valet Parking: Jenkins pipeline automation with Docker, Conan package manager, and Python." },
+    { id: "sub_iav", sectorId: "sector1", x: 700, y: 880, label: "IAV ADAS", category: "Work Experience", color: "#00e5ff", desc: "Driving Scenario Visualizer in Python/Qt & CANape/CANoe bus signal processing tools." },
+
+    { id: "sub_meng", sectorId: "sector2", x: 2360, y: 620, label: "M.Eng. 1.3", category: "Education", color: "#a855f7", desc: "Master of Engineering: Electrical & Information Technology (Specialization in Robotics & 3D Vision, Grade 1.3)." },
+    { id: "sub_robocup", sectorId: "sector2", x: 2640, y: 610, label: "RoboCup 4th", category: "Education", color: "#a855f7", desc: "RoboCup@Work 2021: 4th place worldwide with Team SWOT in autonomous mobile manipulation." },
+    { id: "sub_pcl", sectorId: "sector2", x: 2380, y: 790, label: "PCL 3D Vision", category: "Education", color: "#a855f7", desc: "Point Cloud Library: 3D point cloud segmentation, object pose determination, and spatial reconstruction." },
+    { id: "sub_beng", sectorId: "sector2", x: 2620, y: 800, label: "B.Eng. 2.1", category: "Education", color: "#a855f7", desc: "Bachelor of Engineering: Electrical Engineering & Automation Technology (Grade 2.1)." },
+    { id: "sub_bthesis", sectorId: "sector2", x: 2500, y: 890, label: "Bus Signals", category: "Education", color: "#a855f7", desc: "Bachelor Thesis: Interactive software for automotive bus signal display, analysis, and processing." },
+
+    { id: "sub_cpp", sectorId: "sector3", x: 580, y: 2400, label: "C++14/17", category: "IT Skills", color: "#00ff88", desc: "Advanced modern C++ programming: Low-latency embedded algorithms, clean memory management, and OOP." },
+    { id: "sub_python", sectorId: "sector3", x: 820, "y": 2390, label: "Python", category: "IT Skills", color: "#00ff88", desc: "Advanced Python: Data processing, tool development, PyQt UI frameworks, automation, and testing." },
+    { id: "sub_ros", sectorId: "sector3", x: 570, y: 2600, label: "ROS Nodes", category: "IT Skills", color: "#00ff88", desc: "Robot Operating System (Melodic/Noetic): Node architecture, cartesian_ros_control, and SLAM navigation." },
+    { id: "sub_docker", sectorId: "sector3", x: 830, y: 2610, label: "Docker & Jenkins", category: "IT Skills", color: "#00ff88", desc: "Containerized CI/CD: Automated builds, multi-stage pipelines, static analysis, and Conan caching." },
+    { id: "sub_linux", sectorId: "sector3", x: 700, y: 2700, label: "Linux / Ubuntu", category: "IT Skills", color: "#00ff88", desc: "Linux power user: Shell scripting, kernel interface configuration, Git workflows, and package management." },
+
+    { id: "sub_scrum", sectorId: "sector4", x: 2370, y: 2400, label: "PSM I & PSD I", category: "Certifications", color: "#f59e0b", desc: "Scrum.org certified Professional Scrum Master I & Professional Scrum Developer I." },
+    { id: "sub_aevo", sectorId: "sector4", x: 2630, y: 2410, label: "AEVO AdA", category: "Certifications", color: "#f59e0b", desc: "IHK certified Instructor Aptitude (AdA-Schein nach AEVO) for mentoring and training apprentices." },
+    { id: "sub_deeplearn", sectorId: "sector4", x: 2360, y: 2600, label: "TensorFlow DL", category: "Certifications", color: "#f59e0b", desc: "Deep Learning with TensorFlow workshop: Neural networks, classification, and computer vision models." },
+    { id: "sub_sql", sectorId: "sector4", x: 2640, y: 2590, label: "SQL Data Science", category: "Certifications", color: "#f59e0b", desc: "UC Davis certified SQL for Data Science: Relational schema querying, join optimization, and analytics." },
+    { id: "sub_driver", sectorId: "sector4", x: 2500, y: 2700, label: "Driver Class B", category: "Certifications", color: "#f59e0b", desc: "German Driver's License Class B (Passenger vehicles)." },
+
+    { id: "sub_isc", sectorId: "sector5", x: 1470, y: 380, label: "ISC Volunteer", category: "Interests", color: "#ff007f", desc: "International Students Club (FHWS): Cross-cultural integration and event coordination for international students." },
+    { id: "sub_boulder", sectorId: "sector5", x: 1730, y: 370, label: "Bouldering", category: "Interests", color: "#ff007f", desc: "Bouldering & Fitness: Spatial agility, physical endurance, and dynamic route solving." },
+    { id: "sub_dance", sectorId: "sector5", x: 1460, y: 520, label: "Partner Dance", category: "Interests", color: "#ff007f", desc: "Partner Dancing: Standard & Latin ballroom, Salsa, Bachata, West Coast Swing, and Kizomba." },
+    { id: "sub_travel", sectorId: "sector5", x: 1740, y: 530, label: "Oslo Travel", category: "Interests", color: "#ff007f", desc: "Travel Photography: Exploring Scandinavian culture, modern architecture, and scenic fjord landscapes in Oslo." },
+    { id: "sub_aoc", sectorId: "sector5", x: 1600, y: 280, label: "Advent of Code", category: "Interests", color: "#ff007f", desc: "Advent of Code: Annual algorithmic puzzle challenges tackling graphs, trees, and optimization algorithms." }
+  ],
 
   socialLinks: [
     { name: "LinkedIn", url: "https://www.linkedin.com/in/lukaskraus97/", icon: "fab fa-linkedin" },

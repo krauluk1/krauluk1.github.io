@@ -22,11 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const particles = new ParticleSystem();
   const world = new WorldMap(particles, soundSynthesizer, globalEvents);
   
-  // Rover spawns in the center command hub (1200, 1200)
-  const rover = new Rover(1200, 1200, particles, soundSynthesizer, globalEvents);
+  // Rover spawns in the center command hub (1600, 1600)
+  const rover = new Rover(1600, 1600, particles, soundSynthesizer, globalEvents);
 
   // HUD & UI Controller
-  const hud = new HUDController(globalEvents, soundSynthesizer, storageService);
+  const hud = new HUDController(globalEvents, soundSynthesizer, storageService, particles);
 
   // Main Engine
   const engine = new GameEngine(canvas, rover, world, particles, hud, soundSynthesizer);
