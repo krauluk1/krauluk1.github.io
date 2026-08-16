@@ -15,9 +15,8 @@ import { GameEngine } from './engine.js';
 
 let isBootstrapped = false;
 
-async function bootstrapGame() {
+function bootstrapGame() {
   if (isBootstrapped) return;
-  isBootstrapped = true;
 
   const canvas = document.getElementById('game-canvas');
   if (!canvas) {
@@ -25,14 +24,9 @@ async function bootstrapGame() {
     return;
   }
 
-  // 1. Initialize Single Source of Truth Portfolio Data
-  try {
-    await initPortfolioContent();
-  } catch (err) {
-    console.warn('Portfolio data loaded with warnings:', err);
-  }
+  isBootstrapped = true;
 
-  // 2. Instantiate Core Systems
+  // 1. Instantiate Core Systems (Synchronous, Immediate, Zero Network Delay)
   const particles = new ParticleSystem();
   const world = new WorldMap(particles, soundSynthesizer, globalEvents);
   
@@ -51,10 +45,18 @@ async function bootstrapGame() {
   // Input Manager (Keyboard, Pointer, and Mobile Virtual D-Pad)
   const input = new InputManager(rover, engine.camera, canvas, soundSynthesizer);
 
-  // 3. Start Engine
+  // 2. Start Engine immediately on frame 0
   engine.start();
 
   console.log('%c⚡ Autonomous Rover Odyssey Loaded Successfully! ⚡', 'color:#00e5ff; font-weight:bold; font-size:14px;');
+
+  // 3. Non-blocking background JSON hydration
+  initPortfolioContent().then(() => {
+    world.syncSavedState(Array.from(hud.unlockedSectors), Array.from(hud.collectedItems));
+    hud.updateProgress();
+  }).catch(err => {
+    console.warn('Portfolio data loaded with warnings:', err);
+  });
 }
 
 // Ensure execution even if DOMContentLoaded already fired (common on mobile browsers)

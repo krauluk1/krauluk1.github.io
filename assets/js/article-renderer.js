@@ -230,4 +230,8 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeLightbox();
 });
 
-document.addEventListener('DOMContentLoaded', renderArticle);
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', renderArticle);
+} else {
+  renderArticle();
+}

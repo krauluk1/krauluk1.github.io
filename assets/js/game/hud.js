@@ -128,6 +128,7 @@ export class HUDController {
       });
     }
 
+    // Modal close on backdrop click
     if (this.modal) {
       this.modal.addEventListener('click', (e) => {
         if (e.target === this.modal) {
@@ -135,6 +136,15 @@ export class HUDController {
         }
       });
     }
+
+    // Modal close on ESC key
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' || e.key === 'Esc') {
+        if (this.modal && this.modal.classList.contains('active')) {
+          this.closeModal();
+        }
+      }
+    });
 
     // Subscribe to game events
     this.events.on('sectorUnlocked', (sectorId) => {
@@ -157,10 +167,12 @@ export class HUDController {
   }
 
   onItemCollected(item) {
-    this.collectedItems.add(item.id);
+    if (!item) return;
+    const itemId = item.id || item;
+    this.collectedItems.add(itemId);
     this.saveState();
     this.updateProgress();
-    this.showNotification(`+ Collected Milestone: ${item.label} (${item.category})`);
+    this.showNotification(`+ Collected Milestone: ${item.label || itemId} (${item.category || 'Milestone'})`);
   }
 
   updateProgress() {
@@ -183,7 +195,7 @@ export class HUDController {
       this.hasTriggeredVictory = true;
       this.events.emit('gameCompleted');
       setTimeout(() => {
-        if (this.particles) {
+        if (this.particles && typeof this.particles.emitVictoryCelebration === 'function') {
           this.particles.emitVictoryCelebration(1600, 1600);
         }
         this.openVictoryModal();
@@ -192,6 +204,12 @@ export class HUDController {
   }
 
   showNotification(text) {
+    // Limit active notifications to max 3 to prevent visual clutter
+    const existing = document.querySelectorAll('.cyber-notification');
+    if (existing.length >= 3) {
+      existing[0].remove();
+    }
+
     const notif = document.createElement('div');
     notif.className = 'cyber-notification';
     notif.innerHTML = `<span>⚡</span> <span>${text}</span>`;

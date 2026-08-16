@@ -72,4 +72,8 @@ async function renderLegal() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', renderLegal);
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', renderLegal);
+} else {
+  renderLegal();
+}
