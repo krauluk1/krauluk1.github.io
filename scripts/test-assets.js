@@ -1,6 +1,6 @@
 /**
  * Automated Test Suite for krauluk1.github.io
- * - Validates file structure and asset existence
+ * - Validates clean file structure and asset existence
  * - Checks for broken internal links
  * - Verifies privacy compliance (no private address, phone, or private email)
  * - Verifies ES module imports and syntax
@@ -23,11 +23,10 @@ function logFail(msg) {
 
 console.log('--- Starting Website Automated Validation ---\n');
 
-// 1. Check Core Files
+// 1. Check Core Files (Clean Architecture)
 const requiredFiles = [
   'index.html',
-  'impressum.html',
-  'datenschutz.html',
+  'article.html',
   'privacy.html',
   'legal-notice.html',
   'assets/data/portfolio.json',
@@ -55,8 +54,18 @@ requiredFiles.forEach(file => {
   }
 });
 
+// Check that deleted German alias files do NOT exist
+const deletedFiles = ['datenschutz.html', 'impressum.html', 'blog-details'];
+deletedFiles.forEach(file => {
+  const fullPath = path.join(ROOT_DIR, file);
+  if (!fs.existsSync(fullPath)) {
+    logPass(`Obsolete/German file correctly removed: ${file}`);
+  } else {
+    logFail(`Obsolete file still present: ${file}`);
+  }
+});
+
 // 2. Generic Privacy Compliance Check across all public html and js files
-// Checks for generic patterns that resemble phone numbers or sensitive address formats
 const forbiddenPatterns = [
   { name: 'Generic Phone Number Pattern', pattern: /(?:\+49|0049|01[5-7][0-9])[\s\d/-]{7,}/ },
   { name: 'Generic Street Address Pattern', pattern: /\b[A-ZÄÖÜ][a-zäöüß]+(?:straße|strasse|str\.)\s+\d+/i }
@@ -83,23 +92,26 @@ function checkPrivacy(dir) {
 checkPrivacy(ROOT_DIR);
 logPass('Privacy Compliance Audit completed (Zero private sensitive data detected).');
 
-// 3. Link & Asset Integrity Check in index.html
-if (fs.existsSync(path.join(ROOT_DIR, 'index.html'))) {
-  const indexHtml = fs.readFileSync(path.join(ROOT_DIR, 'index.html'), 'utf8');
-  const srcRegex = /(?:src|href)=["']([^"']+)["']/g;
-  let match;
-  while ((match = srcRegex.exec(indexHtml)) !== null) {
-    const link = match[1];
-    if (link.startsWith('http://') || link.startsWith('https://') || link.startsWith('#') || link.startsWith('mailto:')) {
-      continue;
+// 3. Link & Asset Integrity Check in index.html and article.html
+['index.html', 'article.html'].forEach(htmlFile => {
+  const filePath = path.join(ROOT_DIR, htmlFile);
+  if (fs.existsSync(filePath)) {
+    const htmlContent = fs.readFileSync(filePath, 'utf8');
+    const srcRegex = /(?:src|href)=["']([^"']+)["']/g;
+    let match;
+    while ((match = srcRegex.exec(htmlContent)) !== null) {
+      const link = match[1];
+      if (link.startsWith('http://') || link.startsWith('https://') || link.startsWith('#') || link.startsWith('mailto:') || link.startsWith('javascript:') || link.startsWith('${')) {
+        continue;
+      }
+      const cleanLink = link.split('?')[0].split('#')[0];
+      if (cleanLink && !fs.existsSync(path.join(ROOT_DIR, cleanLink))) {
+        logFail(`Broken asset link in ${htmlFile}: ${cleanLink}`);
+      }
     }
-    const cleanLink = link.split('?')[0].split('#')[0];
-    if (cleanLink && !fs.existsSync(path.join(ROOT_DIR, cleanLink))) {
-      logFail(`Broken asset link in index.html: ${cleanLink}`);
-    }
+    logPass(`Internal asset links in ${htmlFile} verified.`);
   }
-  logPass('Internal asset links in index.html verified.');
-}
+});
 
 console.log('\n--- Test Summary ---');
 if (failures === 0) {

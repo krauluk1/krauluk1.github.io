@@ -17,6 +17,7 @@ export class HUDController {
     this.totalSectors = 5;
     this.totalCollectables = 26;
     this.hasTriggeredVictory = false;
+    this.isFastPassActive = false;
 
     // DOM Elements
     this.progressFill = document.getElementById('hud-progress-fill');
@@ -45,6 +46,9 @@ export class HUDController {
     if (!this.storage) return;
     const saved = this.storage.load();
     if (saved) {
+      if (saved.fastPassUsed) {
+        this.isFastPassActive = true;
+      }
       if (Array.isArray(saved.unlockedSectors)) {
         saved.unlockedSectors.forEach(id => {
           if (PORTFOLIO_CONTENT.sectors[id]) {
@@ -75,6 +79,7 @@ export class HUDController {
     this.storage.save({
       unlockedSectors: Array.from(this.unlockedSectors),
       collectedItems: Array.from(this.collectedItems),
+      fastPassUsed: this.isFastPassActive,
       soundMuted: this.sound.muted
     });
   }
@@ -161,7 +166,8 @@ export class HUDController {
       this.progressText.textContent = `${totalPercent}% Explored`;
     }
 
-    if (totalPercent >= 100 && !this.hasTriggeredVictory) {
+    // Victory celebration only triggers on natural gameplay (NOT Fast-Pass)
+    if (totalPercent >= 100 && !this.hasTriggeredVictory && !this.isFastPassActive) {
       this.hasTriggeredVictory = true;
       this.events.emit('gameCompleted');
       setTimeout(() => {
@@ -335,7 +341,7 @@ export class HUDController {
 
     html += `</div>`;
 
-    // Social Links footer (target="_blank") - Professional networks only (No email)
+    // Social Links footer (target="_blank") - LinkedIn & XING only
     html += `
       <div class="dossier-section-title" style="margin-top:24px;">Connect with Lukas</div>
       <div class="social-connect-row">
@@ -396,9 +402,6 @@ export class HUDController {
         <a href="https://www.xing.com/profile/Lukas_Kraus13/" target="_blank" rel="noopener noreferrer" class="social-chip" style="background: rgba(0, 101, 103, 0.25); border-color: #0284c7; font-size: 14px; padding: 10px 22px;">
           <i class="fab fa-xing-square"></i> Connect on XING &rarr;
         </a>
-        <a href="https://github.com/krauluk1/" target="_blank" rel="noopener noreferrer" class="social-chip" style="background: rgba(255, 255, 255, 0.08); border-color: #cbd5e1; font-size: 14px; padding: 10px 22px;">
-          <i class="fab fa-github"></i> View GitHub Repos &rarr;
-        </a>
       </div>
 
       <div style="text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 18px; display: flex; justify-content: center; gap: 12px;">
@@ -426,6 +429,7 @@ export class HUDController {
     this.unlockedSectors.clear();
     this.collectedItems.clear();
     this.hasTriggeredVictory = false;
+    this.isFastPassActive = false;
     if (this.storage) this.storage.reset();
     this.updateProgress();
     this.events.emit('gameReset');
@@ -434,12 +438,14 @@ export class HUDController {
   }
 
   unlockAllFastPass() {
-    this.sound.playVictory();
+    // Fast pass directly decrypts dossiers for recruiters without triggering victory congratulations
+    this.isFastPassActive = true;
+    this.sound.playClick();
     Object.keys(PORTFOLIO_CONTENT.sectors).forEach(id => this.unlockedSectors.add(id));
     PORTFOLIO_CONTENT.subItems.forEach(it => this.collectedItems.add(it.id));
     this.saveState();
     this.updateProgress();
-    this.showNotification('Recruiter Fast-Pass Active: All 5 Sectors & 26 Milestones Decrypted!');
+    this.showNotification('Recruiter Fast-Pass Active: All Dossiers Decrypted!');
     this.openDossierOverview();
   }
 

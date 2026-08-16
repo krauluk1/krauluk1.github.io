@@ -90,7 +90,7 @@ export const PORTFOLIO_CONTENT = {
         }
       ],
       links: [
-        { label: "Read RoboCup@Work Article & Video", url: "blog-details/roboCupAtWork1.html" }
+        { label: "Read RoboCup@Work Article & Video", url: "article.html?id=robocup" }
       ],
       tags: ["ROS", "PCL", "3D Vision", "Mobile Manipulation", "RoboCup@Work", "C++", "Linux", "Qt"]
     },

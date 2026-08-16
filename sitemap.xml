@@ -2,22 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
   <loc>https://krauluk1.github.io/</loc>
-  <lastmod>2022-02-13</lastmod>
+  <lastmod>2026-08-16</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>https://krauluk1.github.io/index.html</loc>
-  <lastmod>2022-02-13</lastmod>
+  <lastmod>2026-08-16</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://krauluk1.github.io/blog-details/roboCupAtWork1.html</loc>
-  <lastmod>2022-02-13</lastmod>
-  <priority>0.64</priority>
+  <loc>https://krauluk1.github.io/article.html?id=robocup</loc>
+  <lastmod>2026-08-16</lastmod>
+  <priority>0.70</priority>
 </url>
 <url>
-  <loc>https://krauluk1.github.io/blog-details/osloNorwegen1.html</loc>
-  <lastmod>2022-02-13</lastmod>
-  <priority>0.64</priority>
+  <loc>https://krauluk1.github.io/article.html?id=oslo</loc>
+  <lastmod>2026-08-16</lastmod>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://krauluk1.github.io/article.html?id=dancing</loc>
+  <lastmod>2026-08-16</lastmod>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://krauluk1.github.io/privacy.html</loc>
+  <lastmod>2026-08-16</lastmod>
+  <priority>0.30</priority>
+</url>
+<url>
+  <loc>https://krauluk1.github.io/legal-notice.html</loc>
+  <lastmod>2026-08-16</lastmod>
+  <priority>0.30</priority>
 </url>
 </urlset>
