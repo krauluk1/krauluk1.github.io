@@ -67,7 +67,11 @@
         </button>
 
         <button id="fast-pass-btn" class="cyber-btn cyber-btn-fastpass" title="Recruiter Fast-Pass: Instantly Unlock All Dossiers">
-          <i class="fas fa-bolt"></i> Recruiter Fast-Pass
+          <i class="fas fa-bolt"></i> Fast-Pass
+        </button>
+
+        <button id="reset-btn" class="cyber-btn cyber-btn-reset" title="Reset Exploration Progress to 0%">
+          <i class="fas fa-redo"></i> Reset
         </button>
 
         <button id="sound-toggle-btn" class="cyber-btn" title="Toggle Procedural Audio">
@@ -80,7 +84,7 @@
     <footer class="hud-bottom-bar">
       <!-- Navigation Controls Hint -->
       <div class="hud-hints">
-        <span><i class="fas fa-gamepad"></i> Controls:</span> WASD / Arrow Keys to Drive &bull; Click/Tap Map for Autopilot &bull; Space for Brake
+        <span><i class="fas fa-gamepad"></i> Controls:</span> WASD / Arrows &bull; Tap Map for Autopilot &bull; Space for Brake
       </div>
 
       <!-- Minimap Radar -->
@@ -101,10 +105,13 @@
 
   <!-- Mobile Touch Controls (Virtual D-Pad) -->
   <div class="touch-controls" id="touch-controls">
-    <button class="dpad-btn" id="touch-up" aria-label="Forward"><i class="fas fa-chevron-up"></i></button>
-    <button class="dpad-btn" id="touch-down" aria-label="Backward"><i class="fas fa-chevron-down"></i></button>
-    <button class="dpad-btn" id="touch-left" aria-label="Turn Left"><i class="fas fa-chevron-left"></i></button>
-    <button class="dpad-btn" id="touch-right" aria-label="Turn Right"><i class="fas fa-chevron-right"></i></button>
+    <button class="dpad-btn dpad-up" id="touch-up" aria-label="Forward"><i class="fas fa-chevron-up"></i></button>
+    <div class="dpad-middle-row">
+      <button class="dpad-btn dpad-left" id="touch-left" aria-label="Turn Left"><i class="fas fa-chevron-left"></i></button>
+      <button class="dpad-btn dpad-center" id="touch-brake" aria-label="Brake"><i class="fas fa-hand-paper"></i></button>
+      <button class="dpad-btn dpad-right" id="touch-right" aria-label="Turn Right"><i class="fas fa-chevron-right"></i></button>
+    </div>
+    <button class="dpad-btn dpad-down" id="touch-down" aria-label="Backward"><i class="fas fa-chevron-down"></i></button>
   </div>
 
   <!-- Interactive Dossier / Codex Modal Dialog -->

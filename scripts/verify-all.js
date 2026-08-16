@@ -40,8 +40,8 @@ async function runTests() {
   // 1. Check HTTP server response on index.html
   const indexRes = await fetchUrl('http://localhost:8000/index.html');
   assert(indexRes.statusCode === 200, 'GET /index.html returns HTTP 200 OK');
-  assert(indexRes.body.includes('MISSION PROGRESS'), 'index.html contains English HUD "MISSION PROGRESS"');
-  assert(indexRes.body.includes('Recruiter Fast-Pass'), 'index.html contains English "Recruiter Fast-Pass" button');
+  assert(indexRes.body.includes('Fast-Pass') && indexRes.body.includes('id="reset-btn"'), 'index.html contains Fast-Pass and front-page Reset buttons');
+  assert(indexRes.body.includes('id="touch-controls"') && indexRes.body.includes('id="touch-up"'), 'index.html contains mobile touch virtual d-pad controls');
   assert(indexRes.body.includes('target="_blank"'), 'index.html footer links use target="_blank"');
   assert(indexRes.body.includes('pages/privacy.html') && indexRes.body.includes('pages/legal-notice.html'), 'index.html links to pages/privacy.html and pages/legal-notice.html');
 
