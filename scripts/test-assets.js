@@ -23,7 +23,7 @@ function logFail(msg) {
 
 console.log('--- Starting Website Automated Validation ---\n');
 
-// 1. Check Core Files (Dedicated Standalone Architecture)
+// 1. Check Core Files (Clean Zero-Duplication Architecture)
 const requiredFiles = [
   'index.html',
   'article-robocup.html',
@@ -35,6 +35,7 @@ const requiredFiles = [
   'assets/data/articles.json',
   'assets/data/legal.json',
   'assets/css/main.css',
+  'assets/js/article-renderer.js',
   'assets/js/game/app.js',
   'assets/js/game/content.js',
   'assets/js/game/engine.js',

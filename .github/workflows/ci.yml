@@ -36,8 +36,11 @@ jobs:
         run: |
           echo "Verifying HTML structure and static assets..."
           test -f index.html
-          test -f impressum.html
-          test -f datenschutz.html
+          test -f legal-notice.html
+          test -f privacy.html
+          test -f article-robocup.html
+          test -f article-oslo.html
+          test -f article-dancing.html
 
   # Deploy to GitHub Pages (Only on push to main)
   deploy:

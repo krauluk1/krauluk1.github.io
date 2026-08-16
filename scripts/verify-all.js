@@ -1,6 +1,6 @@
 /**
  * Comprehensive Verification Script
- * Validates dedicated article pages, JSON structures, English localization, YouTube embed,
+ * Validates zero-duplication article renderer, JSON structures, English localization, YouTube embed,
  * Oslo Lightbox, Dancing article, WSDC points, and obstacle physics logic.
  */
 const http = require('http');
@@ -72,17 +72,17 @@ async function runTests() {
   assert(sector5Links.includes('article-dancing.html'), 'Sector 5 contains direct article-dancing.html link');
   assert(sector5Links.includes('article-oslo.html'), 'Sector 5 contains direct article-oslo.html link');
 
-  // 3. Validate articles.json & YouTube URL
+  // 3. Validate articles.json (Single Source of Truth)
   const artRes = await fetchUrl('http://localhost:8000/assets/data/articles.json');
   assert(artRes.statusCode === 200, 'GET /assets/data/articles.json returns HTTP 200 OK');
   const articlesData = JSON.parse(artRes.body);
   const robocupArt = articlesData.robocup;
   const osloArt = articlesData.oslo;
   const danceArt = articlesData.dancing;
-  assert(robocupArt && robocupArt.youtubeEmbedUrl === 'https://www.youtube.com/embed/N4QOX2h8s7Y', 'RoboCup article contains valid YouTube embed URL');
-  assert(robocupArt.responsibility.includes('object detection') && robocupArt.responsibility.includes('gripping point detection') && robocupArt.responsibility.includes('autonomous gripping'), 'RoboCup article contains clean concise responsibility statement');
-  assert(osloArt && osloArt.gallery.length === 4, 'Oslo article contains 4 gallery items');
-  assert(danceArt && danceArt.wsdcProfile.wsdcId === '28427', 'Dancing article contains WSDC ID 28427');
+  assert(robocupArt && robocupArt.youtubeEmbedUrl === 'https://www.youtube.com/embed/N4QOX2h8s7Y', 'RoboCup article in JSON contains valid YouTube embed URL');
+  assert(robocupArt.responsibility.includes('object detection') && robocupArt.responsibility.includes('gripping point detection') && robocupArt.responsibility.includes('autonomous gripping'), 'RoboCup article in JSON contains clean concise responsibility statement');
+  assert(osloArt && osloArt.gallery.length === 4, 'Oslo article in JSON contains 4 gallery items');
+  assert(danceArt && danceArt.wsdcProfile.wsdcId === '28427', 'Dancing article in JSON contains WSDC ID 28427');
 
   // 4. Validate legal.json
   const legRes = await fetchUrl('http://localhost:8000/assets/data/legal.json');
@@ -91,15 +91,18 @@ async function runTests() {
   assert(legal.privacy.title === 'Privacy Policy', 'legal.json contains Privacy Policy');
   assert(legal.legalNotice.title.includes('Legal Notice'), 'legal.json contains Legal Notice');
 
-  // 5. Validate Dedicated Standalone Article Pages
+  // 5. Validate Zero-Duplication Shells and Shared Renderer
+  const rendererRes = await fetchUrl('http://localhost:8000/assets/js/article-renderer.js');
+  assert(rendererRes.statusCode === 200 && rendererRes.body.includes('renderArticle') && rendererRes.body.includes('assets/data/articles.json'), 'article-renderer.js dynamically fetches and renders articles.json');
+
   const robocupRes = await fetchUrl('http://localhost:8000/article-robocup.html');
-  assert(robocupRes.statusCode === 200 && robocupRes.body.includes('object detection') && robocupRes.body.includes('roboCupVideo'), 'article-robocup.html returns HTTP 200 with video player and responsibility note');
+  assert(robocupRes.statusCode === 200 && robocupRes.body.includes('article-renderer.js') && robocupRes.body.includes('data-article="robocup"'), 'article-robocup.html is a clean zero-duplication shell using article-renderer.js');
 
   const osloRes = await fetchUrl('http://localhost:8000/article-oslo.html');
-  assert(osloRes.statusCode === 200 && osloRes.body.includes('cyber-lightbox') && osloRes.body.includes('Norsk Folkemuseum'), 'article-oslo.html returns HTTP 200 with Oslo Photo Gallery and Lightbox');
+  assert(osloRes.statusCode === 200 && osloRes.body.includes('article-renderer.js') && osloRes.body.includes('data-article="oslo"'), 'article-oslo.html is a clean zero-duplication shell using article-renderer.js');
 
   const danceRes = await fetchUrl('http://localhost:8000/article-dancing.html');
-  assert(danceRes.statusCode === 200 && danceRes.body.includes('28427') && danceRes.body.includes('West Coast Swing'), 'article-dancing.html returns HTTP 200 with WSDC credentials');
+  assert(danceRes.statusCode === 200 && danceRes.body.includes('article-renderer.js') && danceRes.body.includes('data-article="dancing"'), 'article-dancing.html is a clean zero-duplication shell using article-renderer.js');
 
   // 6. Validate Privacy & Legal pages
   const privRes = await fetchUrl('http://localhost:8000/privacy.html');

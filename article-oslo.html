@@ -7,7 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <meta name="description" content="Oslo Norway Travel and Photography Expedition by Lukas Kraus — Nordic Architecture, Fjords, and Culture.">
-  <meta name="keywords" content="Lukas Kraus, Oslo, Norway, Travel Photography, Vigeland, Fjord, Architecture">
   <meta name="author" content="Lukas Kraus">
 
   <link rel="icon" href="assets/media/favicon/favicon-32x32.png" type="image/x-icon" />
@@ -22,216 +21,17 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="assets/css/main.css">
-
-  <style>
-    .cyber-lightbox {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(2, 6, 23, 0.94);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      z-index: 999999;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      box-sizing: border-box;
-      cursor: zoom-out;
-    }
-
-    .cyber-lightbox.active {
-      display: flex !important;
-    }
-
-    .lightbox-content {
-      position: relative;
-      max-width: 90vw;
-      max-height: 90vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      cursor: default;
-    }
-
-    .lightbox-content img {
-      max-width: 100%;
-      max-height: 78vh;
-      object-fit: contain;
-      border-radius: 12px;
-      border: 1px solid var(--border-cyan);
-      box-shadow: 0 0 45px rgba(0, 229, 255, 0.45);
-    }
-
-    .lightbox-close {
-      position: absolute;
-      top: -18px;
-      right: -18px;
-      width: 40px;
-      height: 40px;
-      background: #0f172a;
-      border: 2px solid var(--cyan);
-      border-radius: 50%;
-      color: var(--cyan);
-      font-size: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 0 15px rgba(0, 229, 255, 0.6);
-      transition: all 0.2s ease;
-      z-index: 1000000;
-    }
-
-    .lightbox-close:hover {
-      background: var(--cyan);
-      color: #000;
-      transform: scale(1.1);
-    }
-
-    .lightbox-caption {
-      margin-top: 14px;
-      color: #e2e8f0;
-      font-family: var(--font-mono);
-      font-size: 14px;
-      text-align: center;
-      background: rgba(15, 23, 42, 0.9);
-      padding: 8px 20px;
-      border-radius: 20px;
-      border: 1px solid rgba(0, 229, 255, 0.35);
-    }
-
-    .gallery-item-card {
-      cursor: pointer;
-      transition: transform 0.2s ease, border-color 0.2s ease;
-    }
-
-    .gallery-item-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--cyan);
-    }
-
-    .zoom-badge {
-      position: absolute;
-      bottom: 8px;
-      right: 8px;
-      background: rgba(0, 0, 0, 0.8);
-      color: var(--cyan);
-      border: 1px solid var(--border-cyan);
-      font-size: 11px;
-      font-family: var(--font-mono);
-      padding: 3px 8px;
-      border-radius: 4px;
-      pointer-events: none;
-    }
-
-    .location-link {
-      display: inline-block;
-      margin-top: 8px;
-      font-size: 12px;
-      font-family: var(--font-mono);
-      color: var(--cyan);
-      text-decoration: underline;
-    }
-  </style>
 </head>
 
 <body style="overflow-y: auto; background: #070a13; padding: 24px 16px;">
 
-  <div class="static-page-container">
-    <div class="static-page-header">
-      <div>
-        <div style="font-family: var(--font-mono); font-size: 11px; color: var(--pink); text-transform: uppercase; margin-bottom: 4px; letter-spacing: 1px;">
-          Sector 05 &bull; Off-Duty Basecamp &amp; Passions
-        </div>
-        <h1><i class="fas fa-mountain text-cyan"></i> Highlights &amp; Architecture in Oslo, Norway</h1>
-      </div>
-    </div>
-
-    <div style="margin-bottom: 24px;">
-      <div class="gallery-hero-wrapper" style="cursor: zoom-in;" onclick="openLightbox('assets/media/oslo/VigelandSkulpturen5.png', 'Vigeland Sculpture Park — High-Resolution Panoramas')">
-        <img src="assets/media/oslo/VigelandSkulpturen5.png" alt="Vigeland Sculpture Park Oslo" style="width: 100%; border-radius: 12px; border: 1px solid var(--border-cyan); box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
-      </div>
-      <div style="font-size: 12px; color: var(--text-muted); margin-top: 10px; font-family: var(--font-mono); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
-        <span><i class="far fa-calendar-alt"></i> November 4, 2021 &bull; Author: Lukas Kraus</span>
-        <span style="color: var(--cyan);"><i class="fas fa-search-plus"></i> Click any photo to enlarge in full-resolution</span>
-      </div>
-    </div>
-
-    <div class="static-page-content">
-      <h2>Impressions from the Nordic Fjord Capital</h2>
-      <p>
-        The Norwegian capital of Oslo captivates visitors with its seamless fusion of cutting-edge modern architecture, pristine fjord landscapes, sustainable urban infrastructure, and rich cultural history.
-      </p>
-
-      <h2>Featured Destinations &amp; Interactive Gallery</h2>
-      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
-        Click on any image card to inspect the photo in high resolution, or click the Google Maps link to view the exact location in Oslo.
-      </p>
-
-      <div class="highlights-grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
-        <div class="highlight-card gallery-item-card" onclick="openLightbox('assets/media/oslo/freilichtMuseum.PNG', 'Norsk Folkemuseum — Traditional Timber Architecture')">
-          <div style="position: relative; overflow: hidden; border-radius: 8px; cursor: zoom-in;">
-            <img src="assets/media/oslo/freilichtMuseum.PNG" alt="Norsk Folkemuseum" style="width:100%; border-radius:8px; display:block; transition: transform 0.3s ease;">
-            <div class="zoom-badge"><i class="fas fa-expand"></i> Zoom</div>
-          </div>
-          <div style="margin-top: 10px;">
-            <h4>Norsk Folkemuseum</h4>
-            <p>Traditional Norwegian wooden architecture and historic stave churches spanning the Middle Ages to modern times on the Bygdøy Peninsula.</p>
-            <a href="https://maps.google.com/?q=Norsk+Folkemuseum+Oslo" target="_blank" rel="noopener noreferrer" class="location-link" onclick="event.stopPropagation();">
-              <i class="fas fa-map-marker-alt text-cyan"></i> View on Google Maps &rarr;
-            </a>
-          </div>
-        </div>
-
-        <div class="highlight-card gallery-item-card" onclick="openLightbox('assets/media/oslo/framMuseum.PNG', 'Fram Polar Ship Museum — Arctic Expeditions')">
-          <div style="position: relative; overflow: hidden; border-radius: 8px; cursor: zoom-in;">
-            <img src="assets/media/oslo/framMuseum.PNG" alt="Fram Museum" style="width:100%; border-radius:8px; display:block; transition: transform 0.3s ease;">
-            <div class="zoom-badge"><i class="fas fa-expand"></i> Zoom</div>
-          </div>
-          <div style="margin-top: 10px;">
-            <h4>Fram Polar Ship Museum</h4>
-            <p>The epic history of Arctic and Antarctic explorations by Fridtjof Nansen, Otto Sverdrup, and Roald Amundsen aboard the historic vessel Fram.</p>
-            <a href="https://maps.google.com/?q=Fram+Museum+Oslo" target="_blank" rel="noopener noreferrer" class="location-link" onclick="event.stopPropagation();">
-              <i class="fas fa-map-marker-alt text-cyan"></i> View on Google Maps &rarr;
-            </a>
-          </div>
-        </div>
-
-        <div class="highlight-card gallery-item-card" onclick="openLightbox('assets/media/oslo/vigelandSkulpturen.PNG', 'Vigeland Park — Granite and Bronze Sculptures')">
-          <div style="position: relative; overflow: hidden; border-radius: 8px; cursor: zoom-in;">
-            <img src="assets/media/oslo/vigelandSkulpturen.PNG" alt="Vigeland Park Sculptures" style="width:100%; border-radius:8px; display:block; transition: transform 0.3s ease;">
-            <div class="zoom-badge"><i class="fas fa-expand"></i> Zoom</div>
-          </div>
-          <div style="margin-top: 10px;">
-            <h4>Vigelandsanlegget</h4>
-            <p>The world's largest sculpture park by a single artist, featuring over 200 granite and bronze figures capturing the full cycle of human emotion and life.</p>
-            <a href="https://maps.google.com/?q=Vigeland+Park+Oslo" target="_blank" rel="noopener noreferrer" class="location-link" onclick="event.stopPropagation();">
-              <i class="fas fa-map-marker-alt text-cyan"></i> View on Google Maps &rarr;
-            </a>
-          </div>
-        </div>
-
-        <div class="highlight-card gallery-item-card" onclick="openLightbox('assets/media/oslo/fjordOper.PNG', 'Oslo Opera House — Waterfront Architecture')">
-          <div style="position: relative; overflow: hidden; border-radius: 8px; cursor: zoom-in;">
-            <img src="assets/media/oslo/fjordOper.PNG" alt="Oslo Opera House" style="width:100%; border-radius:8px; display:block; transition: transform 0.3s ease;">
-            <div class="zoom-badge"><i class="fas fa-expand"></i> Zoom</div>
-          </div>
-          <div style="margin-top: 10px;">
-            <h4>Oslo Opera House &amp; Fjord Walk</h4>
-            <p>Walkable angled white Italian marble roof with panoramic fjord views, accompanied by open-air social Salsa and Bachata dancing on the waterfront.</p>
-            <a href="https://maps.google.com/?q=Oslo+Opera+House" target="_blank" rel="noopener noreferrer" class="location-link" onclick="event.stopPropagation();">
-              <i class="fas fa-map-marker-alt text-cyan"></i> View on Google Maps &rarr;
-            </a>
-          </div>
-        </div>
-      </div>
+  <div class="static-page-container" id="article-app">
+    <div style="text-align: center; padding: 60px 0; color: var(--cyan); font-family: var(--font-mono);">
+      <i class="fas fa-spinner fa-spin" style="font-size: 32px; margin-bottom: 12px;"></i>
+      <p>Loading Article Data from JSON...</p>
     </div>
   </div>
 
-  <!-- Interactive Image Lightbox Modal -->
   <div class="cyber-lightbox" id="image-lightbox" onclick="closeLightbox()">
     <div class="lightbox-content" onclick="event.stopPropagation()">
       <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
@@ -240,27 +40,7 @@
     </div>
   </div>
 
-  <script>
-    function openLightbox(src, caption) {
-      const lightbox = document.getElementById('image-lightbox');
-      const img = document.getElementById('lightbox-img');
-      const cap = document.getElementById('lightbox-caption');
-      img.src = src;
-      cap.textContent = caption;
-      lightbox.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeLightbox() {
-      const lightbox = document.getElementById('image-lightbox');
-      lightbox.classList.remove('active');
-      document.body.style.overflow = 'auto';
-    }
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeLightbox();
-    });
-  </script>
+  <script src="assets/js/article-renderer.js" data-article="oslo"></script>
 
 </body>
 
