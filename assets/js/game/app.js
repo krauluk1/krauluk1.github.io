@@ -1,6 +1,6 @@
 /**
  * App Bootstrap - Dependency Injection & Game Initialization
- * Follows SOLID principles: loads single source of truth portfolio data before engine start.
+ * Robust bootstrap supporting all desktop and mobile browsers.
  */
 import { initPortfolioContent } from './content.js';
 import { globalEvents } from './events.js';
@@ -13,7 +13,7 @@ import { HUDController } from './hud.js';
 import { InputManager } from './input.js';
 import { GameEngine } from './engine.js';
 
-document.addEventListener('DOMContentLoaded', async () => {
+async function bootstrapGame() {
   const canvas = document.getElementById('game-canvas');
   if (!canvas) {
     console.error('Game canvas element not found!');
@@ -21,7 +21,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // 1. Initialize Single Source of Truth Portfolio Data
-  await initPortfolioContent();
+  try {
+    await initPortfolioContent();
+  } catch (err) {
+    console.warn('Portfolio data loaded with warnings:', err);
+  }
 
   // 2. Instantiate Core Systems
   const particles = new ParticleSystem();
@@ -36,11 +40,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Main Engine
   const engine = new GameEngine(canvas, rover, world, particles, hud, soundSynthesizer);
 
-  // Input Manager
+  // Input Manager (Keyboard, Pointer, and Mobile Virtual D-Pad)
   const input = new InputManager(rover, engine.camera, canvas, soundSynthesizer);
 
   // 3. Start Engine
   engine.start();
 
   console.log('%c⚡ Autonomous Rover Odyssey Loaded Successfully! ⚡', 'color:#00e5ff; font-weight:bold; font-size:14px;');
-});
+}
+
+// Ensure execution even if DOMContentLoaded already fired (common on mobile browsers)
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bootstrapGame);
+} else {
+  bootstrapGame();
+}
