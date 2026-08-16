@@ -1,6 +1,6 @@
 /**
  * GameEngine - Core Game Loop & Viewport Pipeline
- * Implements Game Loop and State Machine Pattern
+ * Implements Game Loop and State Machine Pattern with Mobile Viewport Resilience
  */
 export class GameEngine {
   constructor(canvas, rover, world, particles, hudController, soundSynthesizer) {
@@ -18,11 +18,17 @@ export class GameEngine {
 
     this.handleResize();
     window.addEventListener('resize', () => this.handleResize());
+    window.addEventListener('orientationchange', () => {
+      setTimeout(() => this.handleResize(), 100);
+    });
   }
 
   handleResize() {
-    this.canvas.width = window.innerWidth;
-    this.canvas.height = window.innerHeight;
+    const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth || 800;
+    const height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight || 600;
+    
+    this.canvas.width = width;
+    this.canvas.height = height;
   }
 
   start() {
@@ -42,11 +48,15 @@ export class GameEngine {
     const dt = Math.min((currentTime - this.lastTime) / 1000, 0.1);
     this.lastTime = currentTime;
 
-    // 1. Update Game State
-    this.update(dt);
+    try {
+      // 1. Update Game State
+      this.update(dt);
 
-    // 2. Render Scene
-    this.render();
+      // 2. Render Scene
+      this.render();
+    } catch (err) {
+      console.error('Error in game loop frame:', err);
+    }
 
     requestAnimationFrame((t) => this.loop(t));
   }

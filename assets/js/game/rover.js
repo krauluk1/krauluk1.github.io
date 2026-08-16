@@ -288,7 +288,21 @@ export class Rover {
     ctx.shadowColor = '#00e5ff';
 
     ctx.beginPath();
-    ctx.roundRect(-16, -12, 32, 24, 6);
+    if (typeof ctx.roundRect === 'function') {
+      ctx.roundRect(-16, -12, 32, 24, 6);
+    } else {
+      // Fallback for older iOS / Android browsers
+      const rx = -16, ry = -12, rw = 32, rh = 24, r = 6;
+      ctx.moveTo(rx + r, ry);
+      ctx.lineTo(rx + rw - r, ry);
+      ctx.quadraticCurveTo(rx + rw, ry, rx + rw, ry + r);
+      ctx.lineTo(rx + rw, ry + rh - r);
+      ctx.quadraticCurveTo(rx + rw, ry + rh, rx + rw - r, ry + rh);
+      ctx.lineTo(rx + r, ry + rh);
+      ctx.quadraticCurveTo(rx, ry + rh, rx, ry + rh - r);
+      ctx.lineTo(rx, ry + r);
+      ctx.quadraticCurveTo(rx, ry, rx + r, ry);
+    }
     ctx.fill();
     ctx.stroke();
 
