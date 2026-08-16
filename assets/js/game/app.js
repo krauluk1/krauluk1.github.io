@@ -13,7 +13,12 @@ import { HUDController } from './hud.js';
 import { InputManager } from './input.js';
 import { GameEngine } from './engine.js';
 
+let isBootstrapped = false;
+
 async function bootstrapGame() {
+  if (isBootstrapped) return;
+  isBootstrapped = true;
+
   const canvas = document.getElementById('game-canvas');
   if (!canvas) {
     console.error('Game canvas element not found!');
@@ -36,6 +41,9 @@ async function bootstrapGame() {
 
   // HUD & UI Controller
   const hud = new HUDController(globalEvents, soundSynthesizer, storageService, particles);
+
+  // Synchronize any pre-existing saved state into world entities immediately
+  world.syncSavedState(Array.from(hud.unlockedSectors), Array.from(hud.collectedItems));
 
   // Main Engine
   const engine = new GameEngine(canvas, rover, world, particles, hud, soundSynthesizer);

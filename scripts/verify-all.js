@@ -143,6 +143,23 @@ async function runTests() {
   assert(hudJs.includes('isFastPassActive = true'), 'hud.js activates isFastPassActive flag on fast-pass click');
   assert(hudJs.includes('!this.isFastPassActive'), 'hud.js prevents victory modal on Fast-Pass unlock');
   assert(hudJs.includes('openVictoryModal'), 'hud.js implements 100% victory celebration modal for natural gameplay');
+  assert(hudJs.includes("this.events.emit('stateLoaded'"), 'hud.js emits stateLoaded event on persisted state load');
+
+  // 12. Validate Initial Camera Centering in engine.js
+  const engineJs = fs.readFileSync(path.join(ROOT_DIR, 'assets/js/game/engine.js'), 'utf8');
+  assert(engineJs.includes('centerCameraOnRover'), 'engine.js implements centerCameraOnRover method');
+  assert(engineJs.includes('this.centerCameraOnRover()'), 'engine.js centers camera immediately on initialization and start');
+  assert(engineJs.includes('this.render()'), 'engine.js renders initial frame synchronously in start() to prevent blank flicker');
+
+  // 13. Validate WorldMap State Synchronization
+  assert(worldJs.includes('syncSavedState'), 'world.js implements syncSavedState method');
+  assert(worldJs.includes("this.events.on('stateLoaded'"), 'world.js listens for stateLoaded event');
+  assert(worldJs.includes("this.events.on('fastPassUnlocked'"), 'world.js listens for fastPassUnlocked event');
+
+  // 14. Validate Bootstrap Guard & Lifecycle in app.js
+  const appJs = fs.readFileSync(path.join(ROOT_DIR, 'assets/js/game/app.js'), 'utf8');
+  assert(appJs.includes('isBootstrapped'), 'app.js includes single-execution isBootstrapped guard');
+  assert(appJs.includes('world.syncSavedState'), 'app.js explicitly synchronizes state into world on startup');
 
   console.log(`\n================================`);
   console.log(`Verification Summary: ${passCount} Passed, ${failCount} Failed.`);

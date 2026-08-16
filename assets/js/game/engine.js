@@ -17,24 +17,50 @@ export class GameEngine {
     this.isRunning = false;
 
     this.handleResize();
-    window.addEventListener('resize', () => this.handleResize());
-    window.addEventListener('orientationchange', () => {
-      setTimeout(() => this.handleResize(), 100);
+    this.centerCameraOnRover();
+
+    window.addEventListener('resize', () => {
+      this.handleResize();
+      if (!this.isRunning) this.centerCameraOnRover();
     });
+    window.addEventListener('orientationchange', () => {
+      setTimeout(() => {
+        this.handleResize();
+        this.centerCameraOnRover();
+      }, 100);
+    });
+  }
+
+  centerCameraOnRover() {
+    if (!this.canvas || !this.rover || !this.world) return;
+    const targetCamX = this.rover.x - this.canvas.width / 2;
+    const targetCamY = this.rover.y - this.canvas.height / 2;
+
+    const maxCamX = Math.max(0, this.world.width - this.canvas.width);
+    const maxCamY = Math.max(0, this.world.height - this.canvas.height);
+
+    this.camera.x = Math.max(0, Math.min(maxCamX, targetCamX));
+    this.camera.y = Math.max(0, Math.min(maxCamY, targetCamY));
   }
 
   handleResize() {
     const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth || 800;
     const height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight || 600;
     
-    this.canvas.width = width;
-    this.canvas.height = height;
+    if (this.canvas.width !== width || this.canvas.height !== height) {
+      this.canvas.width = width;
+      this.canvas.height = height;
+    }
   }
 
   start() {
     if (this.isRunning) return;
     this.isRunning = true;
+    this.handleResize();
+    this.centerCameraOnRover();
     this.lastTime = performance.now();
+    // Render initial frame immediately so viewport is never blank or uncentered
+    this.render();
     requestAnimationFrame((t) => this.loop(t));
   }
 

@@ -72,6 +72,10 @@ export class HUDController {
         }
       }
       this.updateProgress();
+      this.events.emit('stateLoaded', {
+        unlockedSectors: Array.from(this.unlockedSectors),
+        collectedItems: Array.from(this.collectedItems)
+      });
     }
   }
 
@@ -453,6 +457,7 @@ export class HUDController {
     PORTFOLIO_CONTENT.subItems.forEach(it => this.collectedItems.add(it.id));
     this.saveState();
     this.updateProgress();
+    this.events.emit('fastPassUnlocked');
     this.showNotification('Recruiter Fast-Pass Active: All Dossiers Decrypted!');
     this.openDossierOverview();
   }
