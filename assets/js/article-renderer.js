@@ -1,9 +1,22 @@
 /**
  * Article Renderer - Dynamically renders articles from assets/data/articles.json
  * Eliminates all content duplication between HTML and JSON data stores.
+ * Supports execution from root and /pages/ subdirectories.
  */
 
+function getAssetPrefix() {
+  return window.location.pathname.includes('/pages/') ? '../' : '';
+}
+
+function resolveAssetUrl(url) {
+  if (!url || url.startsWith('http://') || url.startsWith('https://') || url.startsWith('/') || url.startsWith('mailto:') || url.startsWith('#')) {
+    return url;
+  }
+  return getAssetPrefix() + url;
+}
+
 async function renderArticle() {
+  const prefix = getAssetPrefix();
   const scriptTag = document.currentScript || document.querySelector('script[data-article]');
   const defaultArticleKey = scriptTag ? scriptTag.getAttribute('data-article') : 'robocup';
 
@@ -14,7 +27,7 @@ async function renderArticle() {
   if (!container) return;
 
   try {
-    const res = await fetch('assets/data/articles.json');
+    const res = await fetch(`${prefix}assets/data/articles.json`);
     if (!res.ok) throw new Error('Failed to load articles data store');
     const articles = await res.json();
     const article = articles[articleKey];
@@ -40,7 +53,7 @@ async function renderArticle() {
     if (article.youtubeEmbedUrl) {
       html += `
         <div style="margin-bottom: 20px;">
-          <img src="${article.heroImage}" alt="${article.title}" style="width: 100%; border-radius: 12px; border: 1px solid var(--border-cyan); box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+          <img src="${resolveAssetUrl(article.heroImage)}" alt="${article.title}" style="width: 100%; border-radius: 12px; border: 1px solid var(--border-cyan); box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
           <div style="font-size: 12px; color: var(--text-muted); margin-top: 10px; font-family: var(--font-mono); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
             <span><i class="far fa-calendar-alt"></i> ${article.date} &bull; Author: ${article.author}</span>
             ${article.achievement ? `<span style="color: var(--green); font-weight: 600;"><i class="fas fa-trophy"></i> ${article.achievement}</span>` : ''}
@@ -50,8 +63,8 @@ async function renderArticle() {
     } else if (article.gallery) {
       html += `
         <div style="margin-bottom: 24px;">
-          <div class="gallery-hero-wrapper" style="cursor: zoom-in;" onclick="openLightbox('${article.heroImage}', '${article.heroCaption || article.title}')">
-            <img src="${article.heroImage}" alt="${article.title}" style="width: 100%; border-radius: 12px; border: 1px solid var(--border-cyan); box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+          <div class="gallery-hero-wrapper" style="cursor: zoom-in;" onclick="openLightbox('${resolveAssetUrl(article.heroImage)}', '${article.heroCaption || article.title}')">
+            <img src="${resolveAssetUrl(article.heroImage)}" alt="${article.title}" style="width: 100%; border-radius: 12px; border: 1px solid var(--border-cyan); box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
           </div>
           <div style="font-size: 12px; color: var(--text-muted); margin-top: 10px; font-family: var(--font-mono); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
             <span><i class="far fa-calendar-alt"></i> ${article.date} &bull; Author: ${article.author}</span>
@@ -62,7 +75,7 @@ async function renderArticle() {
     } else if (article.heroImage) {
       html += `
         <div style="margin-bottom: 24px; text-align: center;">
-          <img src="${article.heroImage}" alt="${article.title}" style="max-height: 200px; border-radius: 50%; border: 3px solid var(--pink); box-shadow: 0 0 30px rgba(255, 0, 127, 0.35);">
+          <img src="${resolveAssetUrl(article.heroImage)}" alt="${article.title}" style="max-height: 200px; border-radius: 50%; border: 3px solid var(--pink); box-shadow: 0 0 30px rgba(255, 0, 127, 0.35);">
           <div style="font-size: 12px; color: var(--text-muted); margin-top: 14px; font-family: var(--font-mono); display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
             <span><i class="far fa-calendar-alt"></i> ${article.date || ''}</span>
             <span><i class="fas fa-user-astronaut"></i> Author: ${article.author}</span>
@@ -87,7 +100,6 @@ async function renderArticle() {
     // Render Text Sections
     if (article.sections) {
       article.sections.forEach(sec => {
-        // Skip duplicate heading if already rendered in responsibility box
         if (article.responsibility && sec.heading.includes('My Engineering Responsibility')) return;
 
         html += `<h2>${sec.heading}</h2>`;
@@ -162,10 +174,11 @@ async function renderArticle() {
         <div class="highlights-grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
       `;
       article.gallery.forEach(item => {
+        const resolvedImg = resolveAssetUrl(item.image);
         html += `
-          <div class="highlight-card gallery-item-card" onclick="openLightbox('${item.image}', '${item.caption}')">
+          <div class="highlight-card gallery-item-card" onclick="openLightbox('${resolvedImg}', '${item.caption}')">
             <div style="position: relative; overflow: hidden; border-radius: 8px; cursor: zoom-in;">
-              <img src="${item.image}" alt="${item.name}" style="width:100%; border-radius:8px; display:block; transition: transform 0.3s ease;">
+              <img src="${resolvedImg}" alt="${item.name}" style="width:100%; border-radius:8px; display:block; transition: transform 0.3s ease;">
               <div class="zoom-badge"><i class="fas fa-expand"></i> Zoom</div>
             </div>
             <div style="margin-top: 10px;">

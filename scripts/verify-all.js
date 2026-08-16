@@ -1,7 +1,8 @@
 /**
  * Comprehensive Verification Script
- * Validates zero-duplication article renderer, JSON structures, English localization, YouTube embed,
- * Oslo Lightbox, Dancing article, WSDC points, and obstacle physics logic.
+ * Validates zero-duplication architecture (SOLID / KISS), pure JSON data stores,
+ * pages/ folder structure, English localization, YouTube embed,
+ * Oslo Lightbox, Dancing article, WSDC points, obstacle physics, and fast-pass guard.
  */
 const http = require('http');
 const fs = require('fs');
@@ -42,7 +43,7 @@ async function runTests() {
   assert(indexRes.body.includes('MISSION PROGRESS'), 'index.html contains English HUD "MISSION PROGRESS"');
   assert(indexRes.body.includes('Recruiter Fast-Pass'), 'index.html contains English "Recruiter Fast-Pass" button');
   assert(indexRes.body.includes('target="_blank"'), 'index.html footer links use target="_blank"');
-  assert(indexRes.body.includes('privacy.html') && indexRes.body.includes('legal-notice.html'), 'index.html links to English privacy.html and legal-notice.html');
+  assert(indexRes.body.includes('pages/privacy.html') && indexRes.body.includes('pages/legal-notice.html'), 'index.html links to pages/privacy.html and pages/legal-notice.html');
 
   // 2. Validate portfolio.json
   const portRes = await fetchUrl('http://localhost:8000/assets/data/portfolio.json');
@@ -64,13 +65,13 @@ async function runTests() {
   assert(!sector1Links.includes('automated-valet-parking'), 'Sector 1 does NOT contain old Bosch AVP link (successfully removed)');
   assert(sector1Links.includes('podium-project.eu'), 'Sector 1 contains official EU PoDIUM project link');
 
-  // Verify Sector 2 and Sector 5 dedicated links
+  // Verify Sector 2 and Sector 5 dedicated links point to pages/
   const sector2Links = JSON.stringify(portfolio.sectors.sector2.links);
-  assert(sector2Links.includes('article-robocup.html'), 'Sector 2 contains direct article-robocup.html link');
+  assert(sector2Links.includes('pages/article-robocup.html'), 'Sector 2 contains direct pages/article-robocup.html link');
 
   const sector5Links = JSON.stringify(portfolio.sectors.sector5.links);
-  assert(sector5Links.includes('article-dancing.html'), 'Sector 5 contains direct article-dancing.html link');
-  assert(sector5Links.includes('article-oslo.html'), 'Sector 5 contains direct article-oslo.html link');
+  assert(sector5Links.includes('pages/article-dancing.html'), 'Sector 5 contains direct pages/article-dancing.html link');
+  assert(sector5Links.includes('pages/article-oslo.html'), 'Sector 5 contains direct pages/article-oslo.html link');
 
   // 3. Validate articles.json (Single Source of Truth)
   const artRes = await fetchUrl('http://localhost:8000/assets/data/articles.json');
@@ -84,58 +85,60 @@ async function runTests() {
   assert(osloArt && osloArt.gallery.length === 4, 'Oslo article in JSON contains 4 gallery items');
   assert(danceArt && danceArt.wsdcProfile.wsdcId === '28427', 'Dancing article in JSON contains WSDC ID 28427');
 
-  // 4. Validate legal.json
+  // 4. Validate legal.json (Single Source of Truth)
   const legRes = await fetchUrl('http://localhost:8000/assets/data/legal.json');
   assert(legRes.statusCode === 200, 'GET /assets/data/legal.json returns HTTP 200 OK');
   const legal = JSON.parse(legRes.body);
   assert(legal.privacy.title === 'Privacy Policy', 'legal.json contains Privacy Policy');
   assert(legal.legalNotice.title.includes('Legal Notice'), 'legal.json contains Legal Notice');
 
-  // 5. Validate Zero-Duplication Shells and Shared Renderer
+  // 5. Validate Zero-Duplication Shells and Dynamic Renderers in pages/
   const rendererRes = await fetchUrl('http://localhost:8000/assets/js/article-renderer.js');
-  assert(rendererRes.statusCode === 200 && rendererRes.body.includes('renderArticle') && rendererRes.body.includes('assets/data/articles.json'), 'article-renderer.js dynamically fetches and renders articles.json');
+  assert(rendererRes.statusCode === 200 && rendererRes.body.includes('renderArticle') && rendererRes.body.includes('articles.json'), 'article-renderer.js dynamically fetches and renders articles.json');
 
-  const robocupRes = await fetchUrl('http://localhost:8000/article-robocup.html');
-  assert(robocupRes.statusCode === 200 && robocupRes.body.includes('article-renderer.js') && robocupRes.body.includes('data-article="robocup"'), 'article-robocup.html is a clean zero-duplication shell using article-renderer.js');
+  const legalRendererRes = await fetchUrl('http://localhost:8000/assets/js/legal-renderer.js');
+  assert(legalRendererRes.statusCode === 200 && legalRendererRes.body.includes('renderLegal') && legalRendererRes.body.includes('legal.json'), 'legal-renderer.js dynamically fetches and renders legal.json');
 
-  const osloRes = await fetchUrl('http://localhost:8000/article-oslo.html');
-  assert(osloRes.statusCode === 200 && osloRes.body.includes('article-renderer.js') && osloRes.body.includes('data-article="oslo"'), 'article-oslo.html is a clean zero-duplication shell using article-renderer.js');
+  const robocupRes = await fetchUrl('http://localhost:8000/pages/article-robocup.html');
+  assert(robocupRes.statusCode === 200 && robocupRes.body.includes('article-renderer.js') && robocupRes.body.includes('data-article="robocup"'), 'pages/article-robocup.html is a clean zero-duplication shell');
 
-  const danceRes = await fetchUrl('http://localhost:8000/article-dancing.html');
-  assert(danceRes.statusCode === 200 && danceRes.body.includes('article-renderer.js') && danceRes.body.includes('data-article="dancing"'), 'article-dancing.html is a clean zero-duplication shell using article-renderer.js');
+  const osloRes = await fetchUrl('http://localhost:8000/pages/article-oslo.html');
+  assert(osloRes.statusCode === 200 && osloRes.body.includes('article-renderer.js') && osloRes.body.includes('data-article="oslo"'), 'pages/article-oslo.html is a clean zero-duplication shell');
 
-  // 6. Validate Privacy & Legal pages
-  const privRes = await fetchUrl('http://localhost:8000/privacy.html');
-  assert(privRes.statusCode === 200 && privRes.body.includes('General Data Protection Regulation'), 'privacy.html is GDPR compliant in English');
+  const danceRes = await fetchUrl('http://localhost:8000/pages/article-dancing.html');
+  assert(danceRes.statusCode === 200 && danceRes.body.includes('article-renderer.js') && danceRes.body.includes('data-article="dancing"'), 'pages/article-dancing.html is a clean zero-duplication shell');
 
-  const noticeRes = await fetchUrl('http://localhost:8000/legal-notice.html');
-  assert(noticeRes.statusCode === 200 && (noticeRes.body.includes('Digital Services Act') || noticeRes.body.includes('DDG')), 'legal-notice.html is §5 DDG compliant in English');
+  const privRes = await fetchUrl('http://localhost:8000/pages/privacy.html');
+  assert(privRes.statusCode === 200 && privRes.body.includes('legal-renderer.js') && privRes.body.includes('data-legal="privacy"'), 'pages/privacy.html is a clean zero-duplication shell');
 
-  // 7. Validate Obstacle Physics & World in world.js
+  const noticeRes = await fetchUrl('http://localhost:8000/pages/legal-notice.html');
+  assert(noticeRes.statusCode === 200 && noticeRes.body.includes('legal-renderer.js') && noticeRes.body.includes('data-legal="legal-notice"'), 'pages/legal-notice.html is a clean zero-duplication shell');
+
+  // 6. Validate Obstacle Physics & World in world.js
   const worldJs = fs.readFileSync(path.join(ROOT_DIR, 'assets/js/game/world.js'), 'utf8');
   assert(worldJs.includes('this.width = 3200') && worldJs.includes('this.height = 3200'), 'world.js uses expanded 3200x3200 world canvas');
   assert(worldJs.includes('checkObstacleCollision'), 'world.js implements checkObstacleCollision method');
   assert(worldJs.includes('crater_nw') && worldJs.includes('Crater Alpha'), 'world.js contains impact crater obstacles');
 
-  // 8. Validate Rover Collision handling in rover.js
+  // 7. Validate Rover Collision handling in rover.js
   const roverJs = fs.readFileSync(path.join(ROOT_DIR, 'assets/js/game/rover.js'), 'utf8');
   assert(roverJs.includes('checkObstacleCollision'), 'rover.js executes obstacle collision detection');
   assert(roverJs.includes('playBump'), 'rover.js triggers collision sound on obstacle contact');
 
-  // 9. Validate Audio bump sound
+  // 8. Validate Audio bump sound
   const audioJs = fs.readFileSync(path.join(ROOT_DIR, 'assets/js/game/audio.js'), 'utf8');
   assert(audioJs.includes('playBump'), 'audio.js includes synthesized playBump sound effect');
 
-  // 10. Validate No Email in public content/portfolio/modals
+  // 9. Validate No Email in public content/portfolio/modals
   assert(!JSON.stringify(portfolio.socialLinks).includes('@'), 'portfolio.json does not contain email in socialLinks');
   const contentJs = fs.readFileSync(path.join(ROOT_DIR, 'assets/js/game/content.js'), 'utf8');
   assert(!contentJs.includes('mailto:'), 'content.js does not contain email addresses');
 
-  // 11. Validate No Generic GitHub in Social Connection Links (Only LinkedIn & XING)
+  // 10. Validate No Generic GitHub in Social Connection Links (Only LinkedIn & XING)
   assert(!portfolio.socialLinks.some(s => s.name === 'GitHub'), 'portfolio.socialLinks does not contain GitHub connection link');
   assert(portfolio.socialLinks.some(s => s.name === 'LinkedIn') && portfolio.socialLinks.some(s => s.name === 'Xing'), 'portfolio.socialLinks contains LinkedIn and Xing');
 
-  // 12. Validate Fast-Pass Guard & Victory Celebration in hud.js
+  // 11. Validate Fast-Pass Guard & Victory Celebration in hud.js
   const hudJs = fs.readFileSync(path.join(ROOT_DIR, 'assets/js/game/hud.js'), 'utf8');
   assert(hudJs.includes('isFastPassActive = true'), 'hud.js activates isFastPassActive flag on fast-pass click');
   assert(hudJs.includes('!this.isFastPassActive'), 'hud.js prevents victory modal on Fast-Pass unlock');

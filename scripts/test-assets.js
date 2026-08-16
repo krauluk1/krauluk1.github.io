@@ -1,7 +1,7 @@
 /**
  * Automated Test Suite for krauluk1.github.io
  * - Validates clean file structure and asset existence
- * - Checks for broken internal links
+ * - Checks for broken internal links across root and pages/ subdirectories
  * - Verifies privacy compliance (no private address, phone, or private email)
  * - Verifies ES module imports and syntax
  */
@@ -23,19 +23,20 @@ function logFail(msg) {
 
 console.log('--- Starting Website Automated Validation ---\n');
 
-// 1. Check Core Files (Clean Zero-Duplication Architecture)
+// 1. Check Core Files (Clean Zero-Duplication Architecture & pages/ folder)
 const requiredFiles = [
   'index.html',
-  'article-robocup.html',
-  'article-oslo.html',
-  'article-dancing.html',
-  'privacy.html',
-  'legal-notice.html',
+  'pages/article-robocup.html',
+  'pages/article-oslo.html',
+  'pages/article-dancing.html',
+  'pages/privacy.html',
+  'pages/legal-notice.html',
   'assets/data/portfolio.json',
   'assets/data/articles.json',
   'assets/data/legal.json',
   'assets/css/main.css',
   'assets/js/article-renderer.js',
+  'assets/js/legal-renderer.js',
   'assets/js/game/app.js',
   'assets/js/game/content.js',
   'assets/js/game/engine.js',
@@ -57,14 +58,24 @@ requiredFiles.forEach(file => {
   }
 });
 
-// Check that deleted German alias files do NOT exist
-const deletedFiles = ['datenschutz.html', 'impressum.html', 'blog-details'];
-deletedFiles.forEach(file => {
+// Check that obsolete/root files do NOT exist in root
+const obsoleteRootFiles = [
+  'article-robocup.html',
+  'article-oslo.html',
+  'article-dancing.html',
+  'privacy.html',
+  'legal-notice.html',
+  'datenschutz.html',
+  'impressum.html',
+  'blog-details'
+];
+
+obsoleteRootFiles.forEach(file => {
   const fullPath = path.join(ROOT_DIR, file);
   if (!fs.existsSync(fullPath)) {
-    logPass(`Obsolete/German file correctly removed: ${file}`);
+    logPass(`Obsolete/root file correctly not in root: ${file}`);
   } else {
-    logFail(`Obsolete file still present: ${file}`);
+    logFail(`Obsolete root file still present: ${file}`);
   }
 });
 
@@ -96,8 +107,18 @@ checkPrivacy(ROOT_DIR);
 logPass('Privacy Compliance Audit completed (Zero private sensitive data detected).');
 
 // 3. Link & Asset Integrity Check in html files
-['index.html', 'article-robocup.html', 'article-oslo.html', 'article-dancing.html'].forEach(htmlFile => {
+const htmlFiles = [
+  'index.html',
+  'pages/article-robocup.html',
+  'pages/article-oslo.html',
+  'pages/article-dancing.html',
+  'pages/privacy.html',
+  'pages/legal-notice.html'
+];
+
+htmlFiles.forEach(htmlFile => {
   const filePath = path.join(ROOT_DIR, htmlFile);
+  const fileDir = path.dirname(filePath);
   if (fs.existsSync(filePath)) {
     const htmlContent = fs.readFileSync(filePath, 'utf8');
     const srcRegex = /(?:src|href)=["']([^"']+)["']/g;
@@ -108,8 +129,9 @@ logPass('Privacy Compliance Audit completed (Zero private sensitive data detecte
         continue;
       }
       const cleanLink = link.split('?')[0].split('#')[0];
-      if (cleanLink && !fs.existsSync(path.join(ROOT_DIR, cleanLink))) {
-        logFail(`Broken asset link in ${htmlFile}: ${cleanLink}`);
+      const targetPath = path.resolve(fileDir, cleanLink);
+      if (cleanLink && !fs.existsSync(targetPath)) {
+        logFail(`Broken asset link in ${htmlFile}: ${cleanLink} (resolved to ${targetPath})`);
       }
     }
     logPass(`Internal asset links in ${htmlFile} verified.`);

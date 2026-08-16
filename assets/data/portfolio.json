@@ -92,7 +92,7 @@
         }
       ],
       "links": [
-        { "label": "Read RoboCup@Work Article & Video", "url": "article-robocup.html" },
+        { "label": "Read RoboCup@Work Article & Video", "url": "pages/article-robocup.html" },
         { "label": "Official RoboCup@Work League", "url": "https://atwork.robocup.org/" }
       ],
       "tags": ["ROS", "PCL", "3D Vision", "Mobile Manipulation", "RoboCup@Work", "C++", "Linux", "Qt"]
@@ -214,8 +214,8 @@
         }
       ],
       "links": [
-        { "label": "Read Partner Dancing & WSDC Competition Article", "url": "article-dancing.html" },
-        { "label": "Explore Oslo Travel & Photo Gallery", "url": "article-oslo.html" },
+        { "label": "Read Partner Dancing & WSDC Competition Article", "url": "pages/article-dancing.html" },
+        { "label": "Explore Oslo Travel & Photo Gallery", "url": "pages/article-oslo.html" },
         { "label": "Advent of Code Solutions on GitHub", "url": "https://github.com/krauluk1/AoC-2021" }
       ],
       "tags": ["Partner Dance", "West Coast Swing", "WSDC Competitor", "Bouldering", "ISC Volunteering", "Travel Photography", "Advent of Code"]
